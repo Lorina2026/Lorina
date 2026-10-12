@@ -1,0 +1,1755 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#2B4753">
+<title>何以成人，青年何为 · 我的国庆海鸥岛行走思考</title>
+<meta name="description" content="从华师站D口出发，到海傍站G口，再到海鸥岛环岛一圈——一次城市边缘的短途漫游。">
+
+<!-- ============================================================
+     字体（可选加速）：霞鹜文楷，用作楷体回落的网页字体。
+     若课堂上加载缓慢，删除下面这一行即可，页面会自动使用系统楷体。
+     ============================================================ -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css" media="print" onload="this.media='all'">
+
+<style>
+/* ============================================================
+   01 · 设计变量（配色：落日暖金 / 浅橙 / 海盐蓝 / 米白 / 炭灰）
+   ============================================================ */
+:root{
+  /* 落日暖金 */
+  --gold:        #C98A3E;
+  --gold-deep:   #A96E28;
+  --gold-soft:   #E0A458;
+  --gold-light:  #F0C48A;
+  /* 浅橙 */
+  --orange:      #F2C094;
+  --orange-pale: #F9E3CA;
+  /* 海盐蓝 */
+  --sea:         #6E93A0;
+  --sea-deep:    #3F5D6B;
+  --sea-night:   #2B4753;
+  --sea-pale:    #C7D6DB;
+  /* 米白 */
+  --cream:       #FCF9F3;
+  --cream-2:     #F6F0E6;
+  --cream-3:     #EFE7DA;
+  /* 炭灰 */
+  --ink:         #34312D;
+  --ink-soft:    #6E675E;
+  --ink-faint:   #A29A8F;
+
+  /* 行楷为主 · 楷体兜底 */
+  --font-display: "华文行楷","STXingkai","霞鹜文楷","LXGW WenKai","KaiTi","楷体","STKaiti",serif;
+  --font-body:    "霞鹜文楷","LXGW WenKai","KaiTi","楷体","STKaiti","Songti SC",serif;
+
+  --radius:      18px;
+  --radius-lg:   24px;
+  --shadow-sm:   0 2px 10px rgba(90,70,40,.05);
+  --shadow:      0 8px 30px rgba(90,70,40,.08);
+  --shadow-lg:   0 18px 60px rgba(90,70,40,.13);
+  --ease:        cubic-bezier(.22,.72,.28,1);
+  --maxw:        1180px;
+  --nav-h:       62px;
+}
+
+/* ============================================================
+   02 · 基础
+   ============================================================ */
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+body{
+  margin:0;
+  font-family:var(--font-body);
+  font-size:17px;
+  line-height:1.95;
+  color:var(--ink);
+  background:var(--cream);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+@media (min-width:1600px){ body{ font-size:19px; } }
+
+img{ max-width:100%; display:block; }
+button{ font-family:inherit; cursor:pointer; border:0; background:none; color:inherit; }
+input,textarea{ font-family:inherit; font-size:inherit; color:inherit; }
+::selection{ background:rgba(224,164,88,.28); }
+
+/* 宣纸颗粒感（极轻，仅为了"纪实"的质感） */
+body::after{
+  content:''; position:fixed; inset:0; z-index:9998; pointer-events:none; opacity:.032;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.wrap{ width:100%; max-width:var(--maxw); margin:0 auto; padding:0 clamp(20px,4vw,48px); }
+.narrow{ max-width:780px; margin:0 auto; }
+
+/* 入场渐显 */
+.reveal{ opacity:0; transform:translateY(24px);
+  transition:opacity 1.05s var(--ease), transform 1.05s var(--ease);
+  transition-delay:var(--d,0ms); }
+.reveal.in{ opacity:1; transform:none; }
+@media (prefers-reduced-motion:reduce){
+  html{ scroll-behavior:auto; }
+  .reveal{ opacity:1 !important; transform:none !important; transition:none !important; }
+  *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; }
+}
+
+/* ============================================================
+   03 · 顶部导航
+   ============================================================ */
+.nav{
+  position:fixed; top:0; left:0; right:0; z-index:900; height:var(--nav-h);
+  display:flex; align-items:center;
+  background:rgba(252,249,243,0);
+  border-bottom:1px solid rgba(201,138,62,0);
+  transition:background .5s var(--ease), border-color .5s var(--ease), backdrop-filter .5s;
+}
+.nav.solid{
+  background:rgba(252,249,243,.9);
+  -webkit-backdrop-filter:saturate(1.4) blur(14px);
+  backdrop-filter:saturate(1.4) blur(14px);
+  border-bottom-color:rgba(201,138,62,.16);
+}
+.nav-inner{ width:100%; max-width:var(--maxw); margin:0 auto;
+  padding:0 clamp(16px,4vw,48px); display:flex; align-items:center; gap:18px; }
+.nav-brand{
+  font-family:var(--font-display); font-size:19px; letter-spacing:.16em; white-space:nowrap;
+  color:var(--sea-deep); opacity:0; transition:opacity .5s var(--ease);
+}
+.nav.solid .nav-brand{ opacity:1; }
+.nav-links{ display:flex; align-items:center; gap:clamp(10px,1.5vw,24px);
+  margin-left:auto; overflow-x:auto; scrollbar-width:none; -ms-overflow-style:none; }
+.nav-links::-webkit-scrollbar{ display:none; }
+.nav-links a{
+  position:relative; text-decoration:none; white-space:nowrap;
+  font-family:var(--font-display); font-size:16px; letter-spacing:.12em;
+  color:var(--ink-soft); padding:6px 2px; transition:color .35s var(--ease);
+}
+.nav:not(.solid) .nav-links a{ color:rgba(255,255,255,.86); text-shadow:0 1px 10px rgba(20,30,36,.45); }
+.nav-links a::after{
+  content:''; position:absolute; left:2px; right:2px; bottom:0; height:1.5px;
+  background:var(--gold-soft); transform:scaleX(0); transform-origin:left;
+  transition:transform .45s var(--ease); border-radius:2px;
+}
+.nav-links a:hover{ color:var(--gold); }
+.nav-links a:hover::after,.nav-links a.active::after{ transform:scaleX(1); }
+.nav-links a.active{ color:var(--gold-deep); }
+.nav:not(.solid) .nav-links a.active{ color:#fff; }
+/* 阅读进度 */
+.nav-progress{ position:absolute; left:0; bottom:-1px; height:1.5px; width:0;
+  background:linear-gradient(90deg,var(--gold-light),var(--gold)); transition:width .15s linear; }
+
+/* ============================================================
+   04 · 首屏 · 黄昏
+   ============================================================ */
+.hero{
+  position:relative; min-height:100vh; min-height:100svh; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; text-align:center;
+  padding:calc(var(--nav-h) + 40px) clamp(20px,5vw,60px) 0;
+  overflow:hidden; isolation:isolate;
+  background:
+    radial-gradient(130% 62% at 50% 100%, rgba(250,224,180,1) 0%, rgba(242,192,148,.82) 20%, rgba(233,166,94,.36) 42%, rgba(233,166,94,0) 66%),
+    linear-gradient(180deg,
+      #223E4A 0%, #2B4753 14%, #3F5D6B 30%, #5E808E 45%,
+      #86999A 57%, #C2AE96 68%, #E5B583 78%, #F2C094 87%, #F9E3CA 100%);
+}
+/* 落日 */
+.hero-sun{
+  position:absolute; left:50%; bottom:12.5%; width:min(34vw,330px); aspect-ratio:1;
+  transform:translateX(-50%); border-radius:50%; z-index:0; pointer-events:none;
+  background:radial-gradient(circle at 50% 50%, #FFF6E6 0%, #FFE7C2 32%, rgba(255,214,158,.55) 58%, rgba(255,214,158,0) 72%);
+  filter:blur(3px); animation:sunBreathe 11s ease-in-out infinite;
+}
+@keyframes sunBreathe{ 0%,100%{ opacity:.9; transform:translateX(-50%) scale(1); }
+  50%{ opacity:1; transform:translateX(-50%) scale(1.035); } }
+/* 江面：太阳倒影 + 波纹 */
+.hero-water{ position:absolute; left:0; right:0; bottom:0; height:26%; z-index:1; pointer-events:none;
+  background:linear-gradient(180deg, rgba(226,168,104,.42) 0%, rgba(206,150,96,.2) 35%, rgba(150,130,110,.08) 70%, rgba(120,120,120,0) 100%); }
+.hero-glint{
+  position:absolute; left:50%; bottom:0; transform:translateX(-50%);
+  width:min(16vw,160px); height:100%;
+  background:linear-gradient(180deg, rgba(255,240,214,.5), rgba(255,236,200,0) 88%);
+  filter:blur(9px);
+}
+.hero-ripple{ position:absolute; left:0; right:0; height:1px; background:rgba(255,244,226,.42); }
+/* 海鸥 */
+.gull{ position:absolute; z-index:2; opacity:0; animation:gullFly linear infinite; }
+@keyframes gullFly{
+  0%{ opacity:0; transform:translate3d(-12vw,0,0) scale(.9); }
+  12%{ opacity:.5; }
+  50%{ transform:translate3d(48vw,-16px,0) scale(1); }
+  88%{ opacity:.45; }
+  100%{ opacity:0; transform:translate3d(108vw,10px,0) scale(.92); }
+}
+.hero-inner{ position:relative; z-index:3; max-width:1000px; }
+.hero-eyebrow{
+  font-family:var(--font-body); font-size:clamp(12px,1.15vw,14.5px);
+  letter-spacing:.42em; text-indent:.42em; color:rgba(255,248,238,.82);
+  margin-bottom:clamp(22px,4vh,42px); text-shadow:0 2px 14px rgba(20,32,40,.5);
+}
+.hero h1{
+  font-family:var(--font-display); font-weight:400;
+  font-size:clamp(42px,6.6vw,96px); line-height:1.22;
+  letter-spacing:.1em; text-indent:.1em; margin:0;
+  color:#FFFBF3; text-shadow:0 4px 40px rgba(26,40,48,.42), 0 1px 3px rgba(26,40,48,.3);
+}
+.hero h1 .gap{ display:inline-block; width:.32em; }
+.hero-rule{ width:clamp(60px,7vw,104px); height:1px; margin:clamp(26px,4.5vh,44px) auto;
+  background:linear-gradient(90deg,transparent,rgba(255,240,214,.85),transparent); }
+.hero h2{
+  font-family:var(--font-display); font-weight:400; margin:0;
+  font-size:clamp(19px,2.35vw,34px); letter-spacing:.24em; text-indent:.24em;
+  color:rgba(255,250,242,.95); text-shadow:0 2px 22px rgba(26,40,48,.45);
+}
+.hero-note{
+  margin-top:clamp(26px,4.5vh,46px);
+  font-size:clamp(12.5px,1.16vw,15.5px); letter-spacing:.2em; line-height:2.1;
+  color:rgba(255,248,238,.78); text-shadow:0 2px 14px rgba(26,40,48,.5);
+}
+.hero-scroll{ position:absolute; left:50%; bottom:clamp(18px,3.5vh,34px); transform:translateX(-50%);
+  z-index:4; display:flex; flex-direction:column; align-items:center; gap:9px;
+  font-size:11.5px; letter-spacing:.34em; text-indent:.34em; color:rgba(255,250,242,.72); }
+.hero-scroll span{ writing-mode:vertical-rl; letter-spacing:.3em; }
+.hero-scroll i{ display:block; width:1px; height:46px; background:rgba(255,250,242,.5); position:relative; overflow:hidden; }
+.hero-scroll i::after{ content:''; position:absolute; inset:0; background:#FFF6E6;
+  animation:drop 2.4s var(--ease) infinite; }
+@keyframes drop{ 0%{ transform:translateY(-100%); } 60%,100%{ transform:translateY(100%); } }
+
+/* ============================================================
+   05 · 板块通用
+   ============================================================ */
+.sec{ padding:clamp(76px,11vh,140px) 0; position:relative; }
+.sec-head{ text-align:center; margin-bottom:clamp(40px,6vh,68px); }
+.sec-num{
+  display:block; font-family:var(--font-display); font-size:15px; letter-spacing:.5em;
+  text-indent:.5em; color:var(--gold); opacity:.85; margin-bottom:12px;
+}
+.sec-title{
+  font-family:var(--font-display); font-weight:400; margin:0;
+  font-size:clamp(28px,3.3vw,46px); letter-spacing:.16em; text-indent:.16em; color:var(--sea-deep);
+}
+.sec-rule{ display:block; width:44px; height:1px; margin:22px auto 0;
+  background:linear-gradient(90deg,transparent,var(--gold-soft),transparent); }
+.sec-sub{ margin:20px auto 0; max-width:660px; font-size:.95em; letter-spacing:.05em; color:var(--ink-soft); }
+
+.prose{ font-size:1.045em; line-height:2.25; color:var(--ink); letter-spacing:.028em; }
+.prose p{ margin:0 0 1.55em; text-align:justify; text-justify:inter-ideograph; }
+.prose p:last-child{ margin-bottom:0; }
+.prose .k{ font-style:normal; color:var(--gold-deep); }
+.prose .k::after{ content:''; display:block; }
+/* 关键句下方一道几乎看不见的暖光 */
+.prose .k{ background:linear-gradient(180deg,transparent 62%,rgba(224,164,88,.22) 62%); padding-bottom:1px; }
+
+/* ============================================================
+   06 · 板块二 · 足迹地图
+   ============================================================ */
+.map-card{
+  position:relative; background:linear-gradient(170deg,#FBF7F0 0%,#F4EFE5 55%,#EFF1F0 100%);
+  border:1px solid rgba(201,138,62,.14); border-radius:var(--radius-lg);
+  box-shadow:var(--shadow); padding:clamp(14px,2vw,26px); overflow:hidden;
+}
+.map-card::before{
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(70% 60% at 78% 12%, rgba(240,196,138,.16), transparent 70%);
+}
+#map{ width:100%; height:auto; display:block; position:relative; z-index:1; }
+#map .island-body{ fill:url(#islandGrad); stroke:#C9A97C; stroke-width:1.4; }
+#map .island-inner{ fill:none; stroke:rgba(201,169,124,.34); stroke-width:.9; stroke-dasharray:3 5; }
+#map .water-line{ stroke:rgba(110,147,160,.26); stroke-width:1; fill:none; stroke-linecap:round; }
+#map .water-dots{ fill:rgba(110,147,160,.22); }
+#map .farm{ stroke:rgba(150,160,110,.45); stroke-width:1.1; fill:none; stroke-linecap:round; }
+#map .water-label{ fill:rgba(110,147,160,.55); font-family:var(--font-display); font-size:15px; letter-spacing:.34em; }
+
+.route-approach,.route-ring{ fill:none; stroke:url(#routeGrad); stroke-linecap:round; stroke-linejoin:round; stroke-width:3.4; }
+.route-halo{ fill:none; stroke:rgba(224,164,88,.2); stroke-width:11; stroke-linecap:round; opacity:0; transition:opacity 1.4s var(--ease); }
+.route-halo.lit{ opacity:1; }
+
+.mk{ opacity:0; transition:opacity .9s var(--ease); }
+.mk.in{ opacity:1; }
+.mk-dot{ fill:#FCF9F3; stroke:var(--gold); stroke-width:2.6; }
+.mk-core{ fill:var(--gold); }
+.mk-ring{ fill:none; stroke:rgba(224,164,88,.5); stroke-width:1.2; opacity:0;
+  transform-box:fill-box; transform-origin:center; }
+.mk.pulse .mk-ring{ animation:mkPulse 2.6s var(--ease) infinite; }
+@keyframes mkPulse{ 0%{ opacity:.8; transform:scale(.6); } 70%{ opacity:0; transform:scale(2.1); } 100%{ opacity:0; transform:scale(2.1); } }
+.mk-label{ font-family:var(--font-display); font-size:16.5px; fill:var(--sea-deep); letter-spacing:.06em; }
+.mk-label.gold{ fill:var(--gold-deep); }
+.mk-label.sm{ font-size:14px; fill:var(--ink-soft); letter-spacing:.04em; }
+.isl-name{ font-family:var(--font-display); font-size:19px; fill:#8A6A3C; letter-spacing:.2em; opacity:0; transition:opacity 1.2s var(--ease); }
+.isl-name.in{ opacity:.92; }
+.mk-text{ opacity:0; transition:opacity 1.1s var(--ease); }
+.mk-text.in{ opacity:1; }
+
+.map-foot{
+  display:flex; flex-wrap:wrap; align-items:center; gap:14px 26px;
+  margin-top:18px; padding:16px clamp(4px,1vw,10px) 2px;
+  border-top:1px solid rgba(201,138,62,.13);
+  font-size:.88em; color:var(--ink-soft); letter-spacing:.05em;
+}
+.legend{ display:flex; align-items:center; gap:9px; }
+.legend i{ display:block; width:26px; height:0; border-top:2.4px solid var(--gold-soft); border-radius:2px; }
+.legend.r i{ border-top:0; width:12px; height:12px; border:2.4px solid var(--gold-soft); border-radius:50%; }
+.map-foot .tip{ margin-left:auto; font-size:.94em; color:var(--ink-faint); letter-spacing:.08em; }
+.replay{
+  display:inline-flex; align-items:center; gap:7px; padding:7px 17px;
+  border:1px solid rgba(201,138,62,.3); border-radius:999px;
+  font-size:.86em; letter-spacing:.1em; color:var(--gold-deep); background:rgba(255,255,255,.5);
+  transition:background .35s var(--ease), border-color .35s var(--ease); }
+.replay:hover{ background:#fff; border-color:var(--gold-soft); }
+
+/* ============================================================
+   07 · 板块三 · 幻灯片
+   ============================================================ */
+.slides{ position:relative; max-width:1000px; margin:0 auto; }
+.slide-stage{
+  position:relative; width:100%; aspect-ratio:16/9; border-radius:var(--radius-lg);
+  overflow:hidden; background:#E8E0D2; box-shadow:var(--shadow-lg);
+  border:1px solid rgba(255,255,255,.5);
+}
+.slide{ position:absolute; inset:0; opacity:0; transition:opacity 1.15s var(--ease); }
+.slide.on{ opacity:1; }
+.slide img{ width:100%; height:100%; object-fit:cover; }
+
+/* 图片占位（黄昏光影抽象底） */
+.ph{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+.ph::before{ content:''; position:absolute; left:12%; right:12%; top:58%; height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent); }
+.ph::after{ content:''; position:absolute; left:50%; top:38%; width:26%; aspect-ratio:1;
+  transform:translate(-50%,-50%); border-radius:50%;
+  background:radial-gradient(circle,rgba(255,250,238,.85),rgba(255,244,224,.2) 55%,transparent 72%); }
+.ph-mark{ position:relative; z-index:2; font-family:var(--font-display);
+  font-size:clamp(22px,2.6vw,34px); letter-spacing:.4em; text-indent:.4em;
+  color:rgba(255,255,255,.94); text-shadow:0 2px 18px rgba(60,44,24,.42); margin-top:32%; }
+.ph-1{ background:linear-gradient(178deg,#3E5C6A 0%,#6E93A0 34%,#D9B183 66%,#F6D9B4 100%); }
+.ph-2{ background:linear-gradient(176deg,#4A5F63 0%,#8A9C8E 38%,#DCC29A 70%,#F2DFC4 100%); }
+.ph-3{ background:linear-gradient(180deg,#37505E 0%,#7E94A0 40%,#E2BC94 72%,#FBE6CC 100%); }
+.ph-4{ background:linear-gradient(174deg,#2F4753 0%,#59798A 36%,#C9A882 68%,#F0D2AC 100%); }
+
+.slide-cap{ display:flex; align-items:center; justify-content:center; gap:16px;
+  margin-top:20px; font-family:var(--font-display); font-size:19px;
+  letter-spacing:.3em; text-indent:.3em; color:var(--sea-deep); }
+.slide-cap .idx{ min-width:3em; text-align:center; transition:opacity .4s var(--ease); }
+.slide-cap .idx.fade{ opacity:0; }
+.slide-prog{ width:clamp(90px,12vw,160px); height:2px; background:rgba(201,138,62,.16); border-radius:2px; overflow:hidden; }
+.slide-prog i{ display:block; height:100%; width:0; background:var(--gold-soft); border-radius:2px; }
+
+.snav{
+  position:absolute; top:50%; transform:translateY(-50%); z-index:5;
+  width:46px; height:46px; border-radius:50%; display:grid; place-items:center;
+  background:rgba(252,249,243,.72); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.6); box-shadow:0 4px 18px rgba(60,50,30,.14);
+  color:var(--sea-deep); opacity:.55; transition:opacity .35s var(--ease), background .35s var(--ease), transform .35s var(--ease); }
+.snav:hover{ opacity:1; background:rgba(252,249,243,.95); }
+.snav.prev{ left:clamp(10px,1.6vw,20px); }
+.snav.next{ right:clamp(10px,1.6vw,20px); }
+.slides:hover .snav{ opacity:.92; }
+.dots{ display:flex; justify-content:center; gap:10px; margin-top:18px; }
+.dots button{ width:8px; height:8px; border-radius:999px; background:rgba(201,138,62,.26);
+  transition:all .45s var(--ease); }
+.dots button.on{ width:26px; background:var(--gold-soft); }
+.dots button:hover{ background:rgba(201,138,62,.5); }
+
+/* ============================================================
+   08 · 板块四 · 画廊 + 投票
+   ============================================================ */
+.live-badge{
+  display:inline-flex; align-items:center; gap:8px; margin:0 auto 26px;
+  padding:6px 16px; border-radius:999px; font-size:.8em; letter-spacing:.1em;
+  background:rgba(110,147,160,.09); color:var(--sea-deep); border:1px solid rgba(110,147,160,.18);
+}
+.live-badge i{ width:7px; height:7px; border-radius:50%; background:#7FA894; animation:blip 2.4s ease-in-out infinite; }
+.live-badge.off i{ background:var(--ink-faint); animation:none; }
+@keyframes blip{ 0%,100%{ opacity:1; box-shadow:0 0 0 0 rgba(127,168,148,.5); } 50%{ opacity:.55; box-shadow:0 0 0 6px rgba(127,168,148,0); } }
+
+.vote-total{
+  display:flex; align-items:baseline; justify-content:center; gap:12px;
+  margin-bottom:clamp(26px,4vh,40px); color:var(--ink-soft); letter-spacing:.08em; font-size:.95em;
+}
+.vote-total b{ font-family:var(--font-display); font-weight:400; font-size:clamp(30px,3.4vw,46px);
+  color:var(--gold-deep); line-height:1; letter-spacing:.04em; }
+
+.gallery{ display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(14px,1.7vw,24px); }
+.gcard{
+  position:relative; background:#fff; border-radius:var(--radius);
+  border:1.5px solid rgba(201,138,62,.14); box-shadow:var(--shadow-sm);
+  overflow:hidden; transition:transform .5s var(--ease), box-shadow .5s var(--ease), border-color .5s var(--ease);
+}
+.gcard:hover{ transform:translateY(-4px); box-shadow:var(--shadow); }
+.gcard.picked{ border-color:var(--gold-soft); box-shadow:0 0 0 3px rgba(224,164,88,.16), var(--shadow); }
+.gthumb{ position:relative; display:block; width:100%; padding:0; aspect-ratio:4/3; overflow:hidden; }
+.gthumb img{ width:100%; height:100%; object-fit:cover; transition:transform 1.2s var(--ease); }
+.gcard:hover .gthumb img{ transform:scale(1.045); }
+.gzoom{
+  position:absolute; right:10px; bottom:10px; z-index:3; display:flex; align-items:center; gap:5px;
+  padding:4px 10px; border-radius:999px; font-size:11.5px; letter-spacing:.08em;
+  background:rgba(30,36,38,.42); color:#FFF8EC; -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
+  opacity:0; transform:translateY(6px); transition:all .45s var(--ease); pointer-events:none;
+}
+.gcard:hover .gzoom{ opacity:1; transform:none; }
+.gbody{ padding:13px clamp(12px,1.2vw,16px) clamp(13px,1.2vw,16px); }
+.grow{ display:flex; align-items:baseline; justify-content:space-between; gap:8px; }
+.glabel{ font-family:var(--font-display); font-size:17px; letter-spacing:.16em; color:var(--sea-deep); }
+.gcard.picked .glabel{ color:var(--gold-deep); }
+.gpct{ font-size:.86em; color:var(--ink-faint); letter-spacing:.04em; }
+.vbar{ height:3px; border-radius:3px; background:rgba(201,138,62,.13); margin:10px 0 9px; overflow:hidden; }
+.vbar i{ display:block; height:100%; width:0; border-radius:3px;
+  background:linear-gradient(90deg,var(--gold-light),var(--gold-soft));
+  transition:width .9s var(--ease); }
+.gcard.picked .vbar i{ background:linear-gradient(90deg,var(--gold-soft),var(--gold-deep)); }
+.gcnt{ font-size:.86em; color:var(--ink-soft); letter-spacing:.04em; }
+.vbtn{
+  display:block; width:100%; margin-top:12px; padding:10px 8px; border-radius:999px;
+  border:1px solid rgba(201,138,62,.36); background:rgba(249,227,202,.34);
+  color:var(--gold-deep); font-family:var(--font-display); font-size:16px; letter-spacing:.22em; text-indent:.22em;
+  transition:all .4s var(--ease);
+}
+.vbtn:hover{ background:rgba(249,227,202,.8); border-color:var(--gold-soft); }
+.vbtn:disabled{ opacity:.55; cursor:default; }
+.vbtn.done{ background:linear-gradient(135deg,var(--gold-soft),var(--gold)); border-color:transparent;
+  color:#FFFBF3; opacity:1; }
+.gcard.picked .vbtn.done{ box-shadow:0 6px 20px rgba(201,138,62,.32); }
+.vote-foot{ text-align:center; margin-top:26px; font-size:.88em; color:var(--ink-faint); letter-spacing:.08em; }
+
+/* ============================================================
+   09 · 灯箱
+   ============================================================ */
+.lb{
+  position:fixed; inset:0; z-index:1000; display:none;
+  align-items:center; justify-content:center; padding:clamp(16px,4vw,54px);
+  background:rgba(28,30,32,.9); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px);
+}
+.lb.open{ display:flex; animation:lbIn .4s var(--ease); }
+@keyframes lbIn{ from{ opacity:0; } to{ opacity:1; } }
+.lb-fig{ position:relative; max-width:min(1180px,92vw); width:100%; }
+.lb-frame{ position:relative; width:100%; aspect-ratio:16/10; border-radius:var(--radius);
+  overflow:hidden; background:#1E2224; box-shadow:0 30px 90px rgba(0,0,0,.5); }
+.lb-frame img{ width:100%; height:100%; object-fit:contain; }
+.lb-cap{ text-align:center; margin-top:20px; font-family:var(--font-display);
+  font-size:20px; letter-spacing:.34em; text-indent:.34em; color:rgba(255,248,238,.92); }
+.lb-x{ position:absolute; top:-52px; right:0; width:38px; height:38px; border-radius:50%;
+  display:grid; place-items:center; color:rgba(255,248,238,.8); border:1px solid rgba(255,248,238,.22);
+  transition:all .35s var(--ease); }
+.lb-x:hover{ background:rgba(255,248,238,.12); color:#fff; }
+.lb-a{ position:absolute; top:50%; transform:translateY(-50%); width:50px; height:50px; border-radius:50%;
+  display:grid; place-items:center; color:#FFF8EE; background:rgba(255,248,238,.1);
+  border:1px solid rgba(255,248,238,.18); transition:all .35s var(--ease); }
+.lb-a:hover{ background:rgba(255,248,238,.22); }
+.lb-a.prev{ left:clamp(-8px,-1vw,6px); }
+.lb-a.next{ right:clamp(-8px,-1vw,6px); }
+body.lb-on{ overflow:hidden; }
+
+/* ============================================================
+   10 · 板块五~七 · 文字页
+   ============================================================ */
+.band-sea{ background:linear-gradient(180deg,transparent,rgba(110,147,160,.075) 22%,rgba(110,147,160,.075) 78%,transparent); }
+.band-gold{ background:linear-gradient(180deg,transparent,rgba(240,196,138,.13) 20%,rgba(249,227,202,.16) 50%,rgba(240,196,138,.13) 80%,transparent); }
+
+/* 文化的发现：田野笔记式 */
+.fieldnote{ position:relative; padding-left:clamp(20px,3.4vw,42px); }
+.fieldnote::before{ content:''; position:absolute; left:0; top:.5em; bottom:.5em; width:2px;
+  background:linear-gradient(180deg,transparent,var(--gold-light) 12%,var(--gold-soft) 50%,var(--gold-light) 88%,transparent); }
+.fieldnote .mark{ font-family:var(--font-display); font-size:15px; letter-spacing:.34em;
+  color:var(--gold); margin-bottom:20px; display:block; }
+
+/* 素养的沉淀：点亮的长句 */
+.coda{ text-align:center; }
+.coda-line{
+  font-family:var(--font-display); font-size:clamp(22px,2.7vw,38px); line-height:1.9;
+  letter-spacing:.14em; text-indent:.14em; color:var(--sea-deep); margin:0 0 clamp(34px,5vh,54px);
+}
+.coda-line b{ font-weight:400; color:var(--gold-deep); }
+.coda .prose{ text-align:left; }
+
+/* ============================================================
+   11 · 板块七 · 留言
+   ============================================================ */
+.qa{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(14px,1.8vw,24px); margin-bottom:clamp(34px,5vh,50px); }
+.qcard{
+  position:relative; background:rgba(255,255,255,.72); border:1px solid rgba(201,138,62,.16);
+  border-radius:var(--radius); padding:clamp(18px,2.2vw,28px);
+  box-shadow:var(--shadow-sm); overflow:hidden;
+}
+.qcard::before{ content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+  background:linear-gradient(180deg,var(--gold-light),var(--orange)); }
+.qcard .qn{ font-family:var(--font-display); font-size:14px; letter-spacing:.32em; color:var(--gold); }
+.qcard p{ margin:10px 0 0; font-size:1em; line-height:2; color:var(--ink); }
+
+.form-card{
+  background:rgba(255,255,255,.8); border:1px solid rgba(201,138,62,.16);
+  border-radius:var(--radius-lg); padding:clamp(20px,2.6vw,34px); box-shadow:var(--shadow);
+}
+.field{ margin-bottom:16px; }
+.field label{ display:block; font-size:.86em; letter-spacing:.16em; color:var(--ink-soft); margin-bottom:9px; }
+.input,.textarea{
+  width:100%; padding:14px 17px; border-radius:12px; background:rgba(252,249,243,.9);
+  border:1px solid rgba(201,138,62,.2); outline:none; line-height:1.85;
+  transition:border-color .35s var(--ease), box-shadow .35s var(--ease), background .35s var(--ease);
+}
+.input::placeholder,.textarea::placeholder{ color:var(--ink-faint); }
+.input:focus,.textarea:focus{ border-color:var(--gold-soft); background:#fff;
+  box-shadow:0 0 0 4px rgba(224,164,88,.13); }
+.textarea{ resize:vertical; min-height:118px; }
+.form-row{ display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-top:6px; }
+.count{ font-size:.82em; color:var(--ink-faint); letter-spacing:.06em; }
+.btn-gold{
+  padding:13px 40px; border-radius:999px; color:#FFFBF3;
+  background:linear-gradient(135deg,var(--gold-soft),var(--gold));
+  font-family:var(--font-display); font-size:17px; letter-spacing:.24em; text-indent:.24em;
+  box-shadow:0 8px 26px rgba(201,138,62,.26);
+  transition:transform .35s var(--ease), box-shadow .35s var(--ease), opacity .35s; }
+.btn-gold:hover{ transform:translateY(-2px); box-shadow:0 12px 34px rgba(201,138,62,.34); }
+.btn-gold:disabled{ opacity:.6; cursor:default; transform:none; }
+.form-hint{ font-size:.85em; color:var(--gold-deep); letter-spacing:.06em; min-height:1.2em; }
+
+.msg-head{ display:flex; align-items:center; justify-content:space-between; gap:16px;
+  margin:clamp(40px,6vh,60px) 0 18px; padding-bottom:14px;
+  border-bottom:1px solid rgba(201,138,62,.16); }
+.msg-head h3{ font-family:var(--font-display); font-weight:400; margin:0;
+  font-size:clamp(19px,2.1vw,26px); letter-spacing:.16em; color:var(--sea-deep); }
+.msg-head .n{ font-size:.86em; color:var(--ink-faint); letter-spacing:.08em; }
+.msg-list{ display:grid; gap:12px; max-height:min(60vh,560px); overflow-y:auto;
+  padding:4px 6px 4px 4px; scrollbar-width:thin; scrollbar-color:rgba(201,138,62,.3) transparent; }
+.msg-list::-webkit-scrollbar{ width:6px; }
+.msg-list::-webkit-scrollbar-thumb{ background:rgba(201,138,62,.28); border-radius:99px; }
+.msg-list::-webkit-scrollbar-track{ background:transparent; }
+.msg{
+  position:relative; background:rgba(255,255,255,.78); border:1px solid rgba(201,138,62,.13);
+  border-left:3px solid var(--orange); border-radius:12px;
+  padding:15px clamp(16px,1.8vw,22px); box-shadow:var(--shadow-sm); }
+/* 只有"新出现的"留言才播放入场动画，避免定时同步时整屏闪烁 */
+.msg.is-new{ animation:msgIn .8s var(--ease); }
+@keyframes msgIn{ from{ opacity:0; transform:translateY(-14px); } to{ opacity:1; transform:none; } }
+.msg-top{ display:flex; align-items:baseline; gap:12px; margin-bottom:6px; }
+.msg-name{ font-family:var(--font-display); font-size:17px; letter-spacing:.1em; color:var(--gold-deep); }
+.msg-time{ margin-left:auto; font-size:.78em; color:var(--ink-faint); letter-spacing:.04em; white-space:nowrap; }
+.msg-body{ font-size:.98em; line-height:1.95; color:var(--ink); white-space:pre-wrap;
+  word-break:break-word; text-align:justify; }
+.empty{ text-align:center; padding:48px 20px; color:var(--ink-faint); font-size:.94em; letter-spacing:.1em; }
+.msg-tools{ display:flex; justify-content:flex-end; margin-top:16px; }
+.clear{
+  padding:7px 18px; border-radius:999px; font-size:.82em; letter-spacing:.1em;
+  color:var(--ink-faint); border:1px solid rgba(150,140,125,.24); background:rgba(255,255,255,.4);
+  transition:all .35s var(--ease); }
+.clear:hover{ color:#A8543D; border-color:rgba(168,84,61,.4); background:rgba(255,246,242,.85); }
+
+/* ============================================================
+   12 · 板块八 · 二维码
+   ============================================================ */
+.qr-sec{ text-align:center; padding-bottom:clamp(60px,8vh,96px); }
+.qr-card{
+  display:inline-flex; flex-direction:column; align-items:center; gap:20px;
+  padding:clamp(28px,3.6vw,46px) clamp(32px,4.4vw,58px);
+  background:#fff; border:1px solid rgba(201,138,62,.18); border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-lg); cursor:zoom-in;
+  transition:box-shadow .5s var(--ease), transform .5s var(--ease);
+}
+.qr-card:hover{ transform:translateY(-3px); box-shadow:0 24px 70px rgba(90,70,40,.18); }
+.qr-box{ width:clamp(200px,22vw,300px); aspect-ratio:1; }
+.qr-box svg{ width:100%; height:100%; display:block; }
+/* segno 生成的 SVG 依赖宿主 CSS 关闭填充，缺了这行二维码会糊成黑块 */
+.qrline{ fill:none; stroke-width:1; }
+.qr-zoom{ font-size:.82em; letter-spacing:.14em; color:var(--ink-faint); margin-top:-4px; }
+/* 投屏用：全屏放大二维码 */
+.qr-full{
+  position:fixed; inset:0; z-index:1050; display:none; flex-direction:column;
+  align-items:center; justify-content:center; gap:clamp(20px,3vh,38px);
+  background:rgba(252,249,243,.975);
+  -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); }
+.qr-full.open{ display:flex; animation:lbIn .4s var(--ease); }
+.qr-full-box{ width:min(66vh,66vw); aspect-ratio:1; }
+.qr-full-box svg{ width:100%; height:100%; display:block; }
+.qr-full p{ margin:0; font-family:var(--font-display);
+  font-size:clamp(20px,2.5vw,32px); letter-spacing:.24em; text-indent:.24em; color:var(--sea-deep); }
+.qr-full .hintline{ font-family:var(--font-body); font-size:.9rem; letter-spacing:.12em;
+  color:var(--ink-faint); margin-top:-14px; }
+.qr-text{ font-family:var(--font-display); font-size:clamp(17px,1.9vw,22px);
+  letter-spacing:.2em; text-indent:.2em; color:var(--sea-deep); }
+.qr-url{ font-family:var(--font-body); font-size:.82em; letter-spacing:.03em; color:var(--ink-faint);
+  word-break:break-all; max-width:340px; user-select:all; }
+.qr-warn{ display:none; margin-top:14px; font-size:.82em; color:#A8543D; letter-spacing:.04em; }
+.qr-warn.on{ display:block; }
+
+.foot{ text-align:center; padding:44px 20px 60px; font-size:.82em; letter-spacing:.14em;
+  color:var(--ink-faint); border-top:1px solid rgba(201,138,62,.1); }
+.foot .dot{ margin:0 10px; opacity:.5; }
+
+/* ============================================================
+   13 · 轻提示
+   ============================================================ */
+.toast{
+  position:fixed; left:50%; bottom:48px; transform:translate(-50%,24px); z-index:1100;
+  padding:13px 28px; border-radius:999px; pointer-events:none;
+  background:rgba(52,49,45,.92); color:#FFFBF3; font-size:.92em; letter-spacing:.08em;
+  box-shadow:0 12px 40px rgba(0,0,0,.24);
+  opacity:0; transition:all .5s var(--ease); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); }
+.toast.on{ opacity:1; transform:translate(-50%,0); }
+
+/* 离线提示 */
+.offline-tip{
+  display:none; margin:0 auto 26px; max-width:620px; padding:13px 22px; border-radius:12px;
+  background:rgba(242,192,148,.2); border:1px solid rgba(201,138,62,.24);
+  font-size:.86em; line-height:1.8; color:var(--gold-deep); letter-spacing:.03em; }
+.offline-tip.on{ display:block; }
+.offline-tip code{ background:rgba(255,255,255,.6); padding:1px 6px; border-radius:5px; font-size:.94em; }
+
+/* ============================================================
+   14 · 响应式
+   ============================================================ */
+@media (max-width:1000px){
+  .gallery{ grid-template-columns:repeat(2,1fr); }
+}
+@media (max-width:760px){
+  body{ font-size:16.5px; }
+  :root{ --nav-h:56px; }
+  .sec{ padding:66px 0; }
+  .nav-brand{ display:none; }
+  .nav-links{ margin:0 auto; gap:16px; }
+  .nav-links a{ font-size:15px; letter-spacing:.08em; }
+  .hero{ min-height:92svh; }
+  .hero-note{ letter-spacing:.1em; }
+  .prose p{ text-align:left; }
+  .qa{ grid-template-columns:1fr; }
+  .gallery{ grid-template-columns:1fr; gap:18px; }
+  .gthumb{ aspect-ratio:16/10; }
+  .gzoom{ opacity:1; transform:none; }
+  .snav{ width:40px; height:40px; opacity:.85; }
+  .lb-x{ top:-46px; }
+  .lb-a{ width:42px; height:42px; }
+  .lb-a.prev{ left:-6px; } .lb-a.next{ right:-6px; }
+  .map-foot{ font-size:.82em; gap:10px 18px; }
+  .map-foot .tip{ margin-left:0; width:100%; }
+  .msg-list{ max-height:64vh; }
+}
+@media (max-width:420px){
+  .hero h1{ letter-spacing:.06em; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ══════════════ 顶部导航 ══════════════ -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <span class="nav-brand">海鸥岛行记</span>
+    <div class="nav-links">
+      <a href="#s1">足迹</a>
+      <a href="#s2">影像</a>
+      <a href="#s3">投票</a>
+      <a href="#s4">文化</a>
+      <a href="#s5">回响</a>
+      <a href="#s6">沉淀</a>
+      <a href="#s7">思考</a>
+      <a href="#s8">扫码</a>
+    </div>
+  </div>
+  <div class="nav-progress" id="navProgress"></div>
+</nav>
+
+<!-- ══════════════ 序 · 首屏 ══════════════ -->
+<header class="hero" id="top">
+  <div class="hero-sun"></div>
+
+  <!-- 海鸥（极简笔画，缓慢掠过） -->
+  <svg class="gull" style="top:26%;left:0;width:26px;animation-duration:34s;animation-delay:1s" viewBox="0 0 30 12" fill="none" stroke="rgba(255,250,242,.72)" stroke-width="1.2" stroke-linecap="round">
+    <path d="M1 9C5 4 8 3 11 6C14 3 17 4 21 9"/></svg>
+  <svg class="gull" style="top:33%;left:0;width:19px;animation-duration:44s;animation-delay:9s" viewBox="0 0 30 12" fill="none" stroke="rgba(255,250,242,.6)" stroke-width="1.2" stroke-linecap="round">
+    <path d="M1 9C5 4 8 3 11 6C14 3 17 4 21 9"/></svg>
+  <svg class="gull" style="top:20%;left:0;width:15px;animation-duration:52s;animation-delay:20s" viewBox="0 0 30 12" fill="none" stroke="rgba(255,250,242,.5)" stroke-width="1.2" stroke-linecap="round">
+    <path d="M1 9C5 4 8 3 11 6C14 3 17 4 21 9"/></svg>
+
+  <div class="hero-inner">
+    <p class="hero-eyebrow">大学生文化素养 · 课堂分享</p>
+    <h1>何以成人<span class="gap"></span>青年何为</h1>
+    <div class="hero-rule"></div>
+    <h2>我的国庆海鸥岛行走思考</h2>
+    <p class="hero-note">
+      从华师站 D 口出发，到海傍站 G 口，再到海鸥岛环岛一圈
+    </p>
+  </div>
+
+  <div class="hero-water">
+    <div class="hero-glint"></div>
+    <div class="hero-ripple" style="bottom:34%"></div>
+    <div class="hero-ripple" style="bottom:22%;opacity:.6"></div>
+    <div class="hero-ripple" style="bottom:12%;opacity:.36"></div>
+  </div>
+
+  <a class="hero-scroll" href="#s1"><span>向下</span><i></i></a>
+</header>
+
+<main>
+
+<!-- ══════════════ 壹 · 行走的足迹 ══════════════ -->
+<section class="sec" id="s1">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">壹</span>
+      <h2 class="sec-title">行走的足迹</h2>
+      <span class="sec-rule"></span>
+    </div>
+
+    <div class="narrow prose reveal" style="--d:120ms">
+      <p>这是我进入大学后的第一个国庆长假。我从华师站D口出发，搭乘地铁到海傍站G口出站，再前往海鸥岛，环岛一圈。踏上岛屿后，我沿着环岛路慢慢漫游，看江海滩涂、稻田、芦苇与黄昏江面。这不是一次长途远行，而是一场城市边缘的短途漫游，是属于我的一次“行走的阅读”。</p>
+    </div>
+
+    <!-- ── SVG 手绘轨迹地图 ── -->
+    <div class="map-card reveal" style="--d:220ms;margin-top:clamp(40px,6vh,64px)">
+      <svg id="map" viewBox="0 0 960 460" role="img" aria-label="从华师站D口出发，经海傍站G口到海鸥岛环岛一圈的行走路线示意图">
+        <defs>
+          <!-- 海水 -->
+          <linearGradient id="seaGrad" x1="0" y1="0" x2="0.35" y2="1">
+            <stop offset="0%"   stop-color="#EAF1F2"/>
+            <stop offset="55%"  stop-color="#E4EDEE"/>
+            <stop offset="100%" stop-color="#EDF1EF"/>
+          </linearGradient>
+          <!-- 岛屿 -->
+          <linearGradient id="islandGrad" x1="0.05" y1="0" x2="0.95" y2="1">
+            <stop offset="0%"   stop-color="#FBF3E4"/>
+            <stop offset="45%"  stop-color="#F5E7CF"/>
+            <stop offset="100%" stop-color="#EFDFC6"/>
+          </linearGradient>
+          <!-- 路线暖金渐变 -->
+          <linearGradient id="routeGrad" x1="0.05" y1="1" x2="0.95" y2="0">
+            <stop offset="0%"   stop-color="#F0C48A"/>
+            <stop offset="42%"  stop-color="#E0A458"/>
+            <stop offset="100%" stop-color="#C98A3E"/>
+          </linearGradient>
+          <!-- 手绘抖动 -->
+          <filter id="rough" x="-8%" y="-8%" width="116%" height="116%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.021" numOctaves="2" seed="9" result="n"/>
+            <feDisplacementMap in="SourceGraphic" in2="n" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+          </filter>
+          <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur stdDeviation="3.4" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- 江海 -->
+        <rect width="960" height="460" fill="url(#seaGrad)"/>
+        <g id="waterLayer"></g>
+        <text class="water-label" x="120" y="120">江 · 海</text>
+
+        <!-- 岛屿（JS 生成轮廓） -->
+        <g filter="url(#rough)">
+          <path id="islandPath" class="island-body" d=""/>
+          <path id="islandInner" class="island-inner" d=""/>
+        </g>
+        <g id="farmLayer"></g>
+
+        <!-- 路线 -->
+        <path id="routeHalo"   class="route-halo" d=""/>
+        <path id="routeApproach" class="route-approach" d=""/>
+        <path id="routeRing"   class="route-ring" d=""/>
+
+        <!-- 地名 / 站点标注（JS 定位） -->
+        <g id="markers"></g>
+      </svg>
+
+      <div class="map-foot">
+        <span class="legend"><i></i> 行走路线</span>
+        <span class="legend r"></span>
+        <span class="legend" style="margin-left:-18px">环岛一圈</span>
+        <button class="replay" id="replayBtn" type="button">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
+          重播轨迹
+        </button>
+        <span class="tip">循着这条线，从城市走到江海</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ 贰 · 照片幻灯片 ══════════════ -->
+<section class="sec" id="s2" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">贰</span>
+      <h2 class="sec-title">海鸥岛黄昏 · 照片幻灯片</h2>
+      <span class="sec-rule"></span>
+    </div>
+
+    <div class="slides reveal" style="--d:120ms" id="slides">
+      <div class="slide-stage" id="slideStage"><!-- JS 生成 4 张 -->
+        <button class="snav prev" type="button" aria-label="上一张">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <button class="snav next" type="button" aria-label="下一张">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="slide-cap reveal" style="--d:200ms">
+      <span class="idx" id="slideIdx">图一</span>
+      <span class="slide-prog"><i id="slideProg"></i></span>
+      <span class="idx" id="slideNum">1 / 4</span>
+    </div>
+
+    <div class="dots reveal" style="--d:260ms" id="dots"></div>
+  </div>
+</section>
+
+<!-- ══════════════ 叁 · 画廊 + 实时投票 ══════════════ -->
+<section class="sec" id="s3" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">叁</span>
+      <h2 class="sec-title">你认为哪张照片封神？</h2>
+      <span class="sec-rule"></span>
+      <p class="sec-sub">课堂小互动，请为你最喜欢的一张照片投票。<br>点击图片可放大预览，票数在所有人的屏幕上实时同步。</p>
+    </div>
+
+    <div style="text-align:center">
+      <div class="live-badge reveal" id="liveBadge"><i></i><span id="liveText">正在连接实时同步…</span></div>
+    </div>
+
+    <div class="offline-tip reveal" id="offlineTip">
+      <b>当前为本地演示模式</b>：尚未填入 Supabase 配置，投票与留言只保存在本机，<b>不会</b>在同学手机之间同步。
+      请按 <code>haigui/README-部署说明.md</code> 完成三步配置后即可全班实时互动。
+    </div>
+
+    <div class="vote-total reveal" style="--d:80ms">
+      <b id="voteCount">0</b><span>票参与 · 感谢每一位同学</span>
+    </div>
+
+    <div class="gallery" id="gallery"><!-- JS 生成 4 张 --></div>
+
+    <p class="vote-foot reveal">下滑看看大家写下了什么 →</p>
+  </div>
+</section>
+
+<!-- ══════════════ 肆 · 文化的发现 ══════════════ -->
+<section class="sec" id="s4">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">肆</span>
+      <h2 class="sec-title">文化的发现</h2>
+      <span class="sec-rule"></span>
+    </div>
+    <div class="narrow fieldnote reveal" style="--d:120ms">
+      <span class="mark">田野笔记</span>
+      <div class="prose">
+        <p>站在海鸥岛的江边，看着落日铺在水面上，我感受到珠三角江海共生的乡土文化。这里有奔流的江水，有滩涂农田，也有依江而居的朴素生活。广州城市发展很快，但海鸥岛仍然保留着安静、松弛、自然的节奏。这种慢文化让我重新理解了行走的意义。结合《大学生文化素养》课程，我意识到旅行不只是打卡，<em class="k">更是阅读土地、阅读生活、阅读自我</em>。行走让我打开感官，提升观察力、审美力与人文感知力。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ 伍 · 专业的回响 ══════════════ -->
+<section class="sec band-sea" id="s5">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">伍</span>
+      <h2 class="sec-title">专业的回响</h2>
+      <span class="sec-rule"></span>
+    </div>
+    <div class="narrow prose reveal" style="--d:120ms">
+      <p>海鸥岛的自然氛围，也让我联想到特殊教育专业。岛上的草木、飞鸟、江面与风浪，都有自己的节奏。<em class="k">江海包容风浪，自然容纳不同生命共同生长</em>，这让我想到特殊教育中“接纳多元”的理念。每个孩子都是独特的，成长速度不同，发展方式也不同，<em class="k">不能用同一套标准去衡量所有人</em>。未来作为特教工作者，我需要像江海一样温柔、耐心、共情，学会尊重每个生命的成长节奏。这次慢行走让我沉淀心性，也更加坚定温柔育人的初心。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ 陆 · 素养的沉淀 ══════════════ -->
+<section class="sec band-gold" id="s6">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">陆</span>
+      <h2 class="sec-title">素养的沉淀</h2>
+      <span class="sec-rule"></span>
+    </div>
+
+    <p class="coda-line reveal" style="--d:80ms">
+      读书是思想的行走，<br>行走是思想的阅读
+    </p>
+
+    <div class="narrow prose coda reveal" style="--d:160ms">
+      <p>这次海鸥岛之行，让我对“何以成人，青年何为”有了更具体的理解。何以成人，不在于年龄增长，而在于走出校园后能否看见真实生活，能否学会沉静观察、包容差异与自我反思。青年何为，不是只停留在书本里，而是要把读书与行走结合起来。<em class="k">向内读书，向外行走</em>，在自然与生活中沉淀人文素养，建立温柔而坚定的内心力量，这就是我理解中的青年成长之路。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ 柒 · 实时留言 ══════════════ -->
+<section class="sec" id="s7">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">柒</span>
+      <h2 class="sec-title">一起思考｜写下你的想法</h2>
+      <span class="sec-rule"></span>
+      <p class="sec-sub">填写姓名和答案提交，所有留言全班实时公开展示，所有人手机和投屏大屏都能立刻看到。</p>
+    </div>
+
+    <div class="qa">
+      <div class="qcard reveal" style="--d:60ms">
+        <span class="qn">问 一</span>
+        <p>在节奏飞快的大学生活中，你认为“慢行走”可以带给青年怎样的素养成长？</p>
+      </div>
+      <div class="qcard reveal" style="--d:140ms">
+        <span class="qn">问 二</span>
+        <p>如果选择一种自然意象代表你的专业成长，你会选择什么，为什么？</p>
+      </div>
+    </div>
+
+    <div class="form-card reveal" style="--d:200ms">
+      <form id="msgForm" autocomplete="off">
+        <div class="field">
+          <label for="nameInput">你的姓名</label>
+          <input class="input" id="nameInput" type="text" maxlength="20" placeholder="请输入你的姓名">
+        </div>
+        <div class="field">
+          <label for="textInput">你的回答</label>
+          <textarea class="textarea" id="textInput" maxlength="500" placeholder="写下你对思考题的回答"></textarea>
+        </div>
+        <div class="form-row">
+          <button class="btn-gold" type="submit" id="submitBtn">提交留言</button>
+          <span class="count" id="charCount">0 / 500</span>
+          <span class="form-hint" id="formHint"></span>
+        </div>
+      </form>
+    </div>
+
+    <div class="msg-head reveal">
+      <h3>全班的回答</h3>
+      <span class="n" id="msgCount">共 0 条</span>
+    </div>
+    <div class="msg-list reveal" id="msgList"></div>
+    <div class="msg-tools reveal">
+      <button class="clear" id="clearBtn" type="button">管理员 · 清空全部留言</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ 捌 · 扫码 ══════════════ -->
+<section class="sec qr-sec" id="s8">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">捌</span>
+      <h2 class="sec-title">扫码参与投票与留言互动</h2>
+      <span class="sec-rule"></span>
+    </div>
+    <div class="qr-card reveal" style="--d:120ms" id="qrCard" title="点击可全屏放大二维码">
+      <div class="qr-box" id="qrBox"><!-- 二维码 SVG 内嵌 --></div>
+      <p class="qr-text">扫码参与投票与留言互动</p>
+      <p class="qr-url" id="qrUrl"></p>
+      <p class="qr-warn" id="qrWarn"></p>
+    </div>
+    <p class="qr-zoom">点击二维码可全屏放大，方便投屏时全班一起扫</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <span>何以成人，青年何为</span><span class="dot">·</span>
+  <span>我的国庆海鸥岛行走思考</span><span class="dot">·</span>
+  <span>《大学生文化素养》课堂分享</span>
+</footer>
+
+<!-- ══════════════ 灯箱 ══════════════ -->
+<div class="lb" id="lightbox" role="dialog" aria-modal="true" aria-label="照片预览">
+  <figure class="lb-fig">
+    <div class="lb-frame" id="lbFrame"></div>
+    <figcaption class="lb-cap" id="lbCap">图一</figcaption>
+    <button class="lb-x" id="lbClose" type="button" aria-label="关闭">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <button class="lb-a prev" id="lbPrev" type="button" aria-label="上一张">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+    </button>
+    <button class="lb-a next" id="lbNext" type="button" aria-label="下一张">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+    </button>
+  </figure>
+</div>
+
+<!-- ══════════════ 二维码全屏放大（投屏用） ══════════════ -->
+<div class="qr-full" id="qrFull" role="dialog" aria-modal="true" aria-label="二维码放大">
+  <div class="qr-full-box" id="qrFullBox"></div>
+  <p>扫码参与投票与留言互动</p>
+  <p class="hintline">点击任意处 或 按 Esc 退出全屏</p>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- Supabase 官方 SDK（若课堂网络加载失败，页面会自动进入本地演示模式，不会白屏） -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+
+<script>
+/* ================================================================
+   ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+   ★                                                              ★
+   ★   配 置 区 —— 只 需 修 改 下 面 两 行                          ★
+   ★                                                              ★
+   ★   打开 Supabase 控制台 → 左侧 Project Settings → API          ★
+   ★   1) SUPABASE_URL      = Project URL   （形如 https://abcd.supabase.co）★
+   ★   2) SUPABASE_ANON_KEY = anon public   （一长串 eyJ 开头的字符串）    ★
+   ★                                                              ★
+   ★   注意：要填 anon public 这一条，不要填 service_role（那是密钥，会泄密）★
+   ★   建表 SQL 见同目录 supabase-建表.sql，先把表建好再填这里        ★
+   ★                                                              ★
+   ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ */
+const SUPABASE_URL      = '';   // ← 在这里粘贴 Project URL
+const SUPABASE_ANON_KEY = '';   // ← 在这里粘贴 anon public key
+/* ★★★★★★★★★★★ 配置区结束，以下内容都不需要改动 ★★★★★★★★★★★ */
+
+
+/* ================================================================
+   00 · 通用工具
+   ================================================================ */
+const $  = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+
+/** 留言内容转义，防止注入（公开页面必须做） */
+function esc(str){
+  return String(str)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+function toast(msg){
+  const el = $('#toast');
+  el.textContent = msg;
+  el.classList.add('on');
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('on'), 2400);
+}
+function relTime(iso){
+  const t = new Date(iso).getTime();
+  if (Number.isNaN(t)) return '';
+  const d = (Date.now() - t) / 1000;
+  if (d < 60)     return '刚刚';
+  if (d < 3600)   return Math.floor(d / 60) + ' 分钟前';
+  if (d < 86400)  return Math.floor(d / 3600) + ' 小时前';
+  const dt = new Date(t);
+  const p = n => String(n).padStart(2, '0');
+  return `${p(dt.getMonth() + 1)}-${p(dt.getDate())} ${p(dt.getHours())}:${p(dt.getMinutes())}`;
+}
+
+
+/* ================================================================
+   01 · 照片配置
+   ----------------------------------------------------------------
+   把 4 张照片放进 haigui/photos/ 文件夹，命名为 1.jpg 2.jpg 3.jpg 4.jpg
+   即可自动显示，无需改动任何代码。
+   如果照片还没放，页面会显示唯美的黄昏占位图，不会出现破图。
+   若想用别的文件名，改下面 src 即可（留空 '' 则强制显示占位图）。
+   ================================================================ */
+const PHOTOS = [
+  { src: 'photos/1.jpg', label: '图一' },
+  { src: 'photos/2.jpg', label: '图二' },
+  { src: 'photos/3.jpg', label: '图三' },
+  { src: 'photos/4.jpg', label: '图四' }
+];
+
+/** 生成一层的 DOM：有图用图，无图用占位 */
+function photoInner(i){
+  const p = PHOTOS[i];
+  if (p.src){
+    return `<img src="${p.src}" alt="${p.label}" loading="lazy"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <div class="ph ph-${i + 1}" style="display:none"><span class="ph-mark">${p.label}</span></div>`;
+  }
+  return `<div class="ph ph-${i + 1}"><span class="ph-mark">${p.label}</span></div>`;
+}
+
+
+/* ================================================================
+   02 · 入场渐显 / 导航
+   ================================================================ */
+const io = new IntersectionObserver((es) => {
+  es.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+$$('.reveal').forEach(el => io.observe(el));
+
+// 导航背景 + 阅读进度 + 当前板块高亮
+const nav = $('#nav'), navBar = $('#navProgress');
+const secIds = ['s1','s2','s3','s4','s5','s6','s7','s8'];
+function onScroll(){
+  const y = window.scrollY;
+  nav.classList.toggle('solid', y > window.innerHeight * 0.78);
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  navBar.style.width = (h > 0 ? Math.min(100, (y / h) * 100) : 0) + '%';
+
+  let cur = '';
+  secIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= window.innerHeight * 0.4) cur = id;
+  });
+  $$('.nav-links a').forEach(a =>
+    a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+}
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+
+/* ================================================================
+   03 · 手绘轨迹地图
+   ================================================================ */
+(function mapModule(){
+
+  const NS = 'http://www.w3.org/2000/svg';
+  const W = 960, H = 460;
+
+  /* ---- 岛屿轮廓（相对坐标点，按长轴方向排布）---- */
+  const OUTLINE = [
+    [372, 306], [398, 268], [452, 230], [524, 198],
+    [608, 166], [700, 138], [786, 118], [850, 116],
+    [888, 138], [872, 178], [818, 212], [742, 246],
+    [654, 278], [562, 302], [470, 318], [404, 322]
+  ];
+  const cx = OUTLINE.reduce((s,p) => s + p[0], 0) / OUTLINE.length;
+  const cy = OUTLINE.reduce((s,p) => s + p[1], 0) / OUTLINE.length;
+
+  /** 把点朝质心收缩，得到岛内一圈的"环岛路" */
+  const shrink = (pts, k) => pts.map(([x, y]) => [cx + (x - cx) * k, cy + (y - cy) * k]);
+
+  /** Catmull-Rom → 三次贝塞尔，生成平滑闭合曲线 */
+  function smoothClosed(pts, tension = 1){
+    const n = pts.length, d = [];
+    d.push(`M ${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`);
+    for (let i = 0; i < n; i++){
+      const p0 = pts[(i - 1 + n) % n], p1 = pts[i], p2 = pts[(i + 1) % n], p3 = pts[(i + 2) % n];
+      const c1x = p1[0] + (p2[0] - p0[0]) / 6 * tension;
+      const c1y = p1[1] + (p2[1] - p0[1]) / 6 * tension;
+      const c2x = p2[0] - (p3[0] - p1[0]) / 6 * tension;
+      const c2y = p2[1] - (p3[1] - p1[1]) / 6 * tension;
+      d.push(`C ${c1x.toFixed(1)} ${c1y.toFixed(1)} ${c2x.toFixed(1)} ${c2y.toFixed(1)} ${p2[0].toFixed(1)} ${p2[1].toFixed(1)}`);
+    }
+    return d.join(' ') + ' Z';
+  }
+
+  /** 射线法判断点是否在多边形内（用来把水纹避开岛屿） */
+  function inPoly(x, y, pts){
+    let inside = false;
+    for (let i = 0, j = pts.length - 1; i < pts.length; j = i++){
+      const [xi, yi] = pts[i], [xj, yj] = pts[j];
+      if (((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi)) inside = !inside;
+    }
+    return inside;
+  }
+
+  const islandD = smoothClosed(OUTLINE);
+  const ringPts = shrink(OUTLINE, 0.80);
+  const ringD   = smoothClosed(ringPts);
+
+  $('#islandPath').setAttribute('d', islandD);
+  $('#islandInner').setAttribute('d', smoothClosed(shrink(OUTLINE, 0.9)));
+
+  /* ---- 关键站点 ---- */
+  const START  = ringPts[0];                                    // 环岛起点（岛西南端）
+  const METRO  = [96, 400];                                     // 华师站 D 口（市区）
+  const HAIBANG = [252, 352];                                   // 海傍站 G 口（对岸）
+  const ISL_NAME = [628, 172];                                  // 岛名标注位置
+  const RING_LABEL = [628, 84];                                 // 「环岛一圈」标注位置
+
+  // 进岛路线：华师D口 → 海傍G口 → 环岛起点
+  const approachD =
+    `M ${METRO[0]} ${METRO[1]} ` +
+    `C 150 392, 204 372, ${HAIBANG[0]} ${HAIBANG[1]} ` +
+    `C 300 330, 322 306, ${START[0].toFixed(1)} ${START[1].toFixed(1)}`;
+
+  $('#routeApproach').setAttribute('d', approachD);
+  $('#routeRing').setAttribute('d', ringD);
+
+  /* ---- 背景：水波 + 田垄 ---- */
+  const water = $('#waterLayer');
+  const waves = [
+    [40, 196, 150], [180, 92, 120], [30, 286, 180], [90, 372, 140],
+    [690, 372, 200], [770, 60, 150], [560, 400, 170], [300, 430, 220],
+    [500, 62, 110], [860, 300, 90]
+  ];
+  waves.forEach(([x, y, len], i) => {
+    const p = document.createElementNS(NS, 'path');
+    const seg = len / 3;
+    p.setAttribute('d', `M ${x} ${y} q ${seg/2} -5 ${seg} 0 q ${seg/2} 5 ${seg} 0 q ${seg/2} -5 ${seg} 0`);
+    p.setAttribute('class', 'water-line');
+    p.setAttribute('opacity', (0.5 + (i % 3) * 0.16).toFixed(2));
+    water.appendChild(p);
+  });
+  // 水面细点：铺满画布，但避开岛屿（含一圈留白）
+  const SHORE = shrink(OUTLINE, 1.14);
+  for (let r = 0; r < 18; r++){
+    for (let c = 0; c < 24; c++){
+      const x = 26 + c * 40 + (r % 2) * 11, y = 42 + r * 24;
+      if (inPoly(x, y, SHORE)) continue;
+      const d = document.createElementNS(NS, 'circle');
+      d.setAttribute('cx', x.toFixed(1)); d.setAttribute('cy', y.toFixed(1));
+      d.setAttribute('r', 1.1); d.setAttribute('class', 'water-dots');
+      d.setAttribute('opacity', (0.3 + ((r * 7 + c * 3) % 5) * 0.09).toFixed(2));
+      water.appendChild(d);
+    }
+  }
+
+  // 岛上的田垄 / 芦苇（几笔带过）
+  const farm = $('#farmLayer');
+  [[470, 262, 74], [560, 232, 86], [656, 200, 92], [742, 176, 74], [520, 288, 60], [610, 258, 70]]
+    .forEach(([x, y, len]) => {
+      for (let k = 0; k < 4; k++){
+        const p = document.createElementNS(NS, 'path');
+        const yy = y + k * 7;
+        p.setAttribute('d', `M ${x} ${yy} q ${len/2} -4 ${len} 0`);
+        p.setAttribute('class', 'farm');
+        p.setAttribute('opacity', (0.5 - k * 0.08).toFixed(2));
+        farm.appendChild(p);
+      }
+    });
+
+  /* ---- 站点标注 ---- */
+  const markers = $('#markers');
+  function addMarker([x, y], lines, opt = {}){
+    const g = document.createElementNS(NS, 'g');
+    g.setAttribute('class', 'mk' + (opt.pulse ? ' pulse' : ''));
+
+    const core = document.createElementNS(NS, 'circle');
+    core.setAttribute('cx', x); core.setAttribute('cy', y); core.setAttribute('r', 4.2);
+    core.setAttribute('class', 'mk-core');
+
+    const ring = document.createElementNS(NS, 'circle');
+    ring.setAttribute('cx', x); ring.setAttribute('cy', y); ring.setAttribute('r', opt.big ? 11 : 9);
+    ring.setAttribute('class', 'mk-ring');
+    ring.style.transformOrigin = `${x}px ${y}px`;
+
+    const dot = document.createElementNS(NS, 'circle');
+    dot.setAttribute('cx', x); dot.setAttribute('cy', y);
+    dot.setAttribute('r', opt.big ? 8.5 : 7);
+    dot.setAttribute('class', 'mk-dot');
+
+    g.append(ring, dot, core);
+
+    const dx = opt.dx ?? 15, dy = opt.dy ?? 4;
+    lines.forEach((t, i) => {
+      const tx = document.createElementNS(NS, 'text');
+      tx.setAttribute('x', x + dx);
+      tx.setAttribute('y', y + dy + i * 19);
+      tx.setAttribute('class', 'mk-label' + (opt.gold ? ' gold' : '') + (i > 0 ? ' sm' : ''));
+      if (opt.anchor) tx.setAttribute('text-anchor', opt.anchor);
+      tx.textContent = t;
+      g.appendChild(tx);
+    });
+    markers.appendChild(g);
+    return g;
+  }
+
+  // 站点 ① 华师站D口 —— 标注放在路线下侧的水面上，避免压线
+  const mMetro = addMarker(METRO, ['华师站 · D口', '出发'], { dx: 16, dy: 24, anchor: 'start' });
+  // 站点 ② 海傍站G口
+  const mHai   = addMarker(HAIBANG, ['海傍站 · G口', '出站'], { dx: 16, dy: 6, anchor: 'start' });
+  // 站点 ③ 环岛起点（只留一个脉冲点，文字标注在岛上方）
+  const mIsl   = addMarker(START, [], { big: true, pulse: true });
+
+  // 「环岛一圈」——悬在岛屿上方的江面上
+  const ringLabel = document.createElementNS(NS, 'text');
+  ringLabel.setAttribute('x', RING_LABEL[0]);
+  ringLabel.setAttribute('y', RING_LABEL[1]);
+  ringLabel.setAttribute('class', 'mk-label gold mk-text');
+  ringLabel.setAttribute('text-anchor', 'middle');
+  ringLabel.setAttribute('font-size', '20');
+  ringLabel.setAttribute('letter-spacing', '.16em');
+  ringLabel.textContent = '环岛一圈';
+  markers.appendChild(ringLabel);
+
+  // 岛名（广州市番禺区海鸥岛）——落在岛体正中
+  const islLabel = document.createElementNS(NS, 'text');
+  islLabel.setAttribute('class', 'isl-name');
+  islLabel.setAttribute('text-anchor', 'middle');
+  islLabel.textContent = '广州市番禺区海鸥岛';
+  markers.appendChild(islLabel);
+
+  // 依据实际文字宽度把岛名水平居中并限制在岛体内
+  const nameLen = islLabel.getComputedTextLength ? islLabel.getComputedTextLength() : 190;
+  islLabel.setAttribute('x', Math.min(ISL_NAME[0], 878 - nameLen / 2).toFixed(1));
+  islLabel.setAttribute('y', ISL_NAME[1]);
+
+  /* ---- 轨迹绘制动画 ---- */
+  const pa = $('#routeApproach'), pr = $('#routeRing'), halo = $('#routeHalo');
+  halo.setAttribute('d', approachD);
+  const la = pa.getTotalLength(), lr = pr.getTotalLength();
+
+  [pa, pr].forEach(p => {
+    p.style.strokeDasharray  = 'none';
+    p.style.strokeDashoffset = '0';
+  });
+  pa.style.strokeDasharray = la;
+  pr.style.strokeDasharray = lr;
+
+  const timers = [];
+  function clearTimers(){ timers.forEach(clearTimeout); timers.length = 0; }
+
+  function play(){
+    clearTimers();
+    // 复位
+    pa.style.transition = 'none'; pr.style.transition = 'none';
+    pa.style.strokeDashoffset = la; pr.style.strokeDashoffset = lr;
+    [mMetro, mHai, mIsl].forEach(m => m.classList.remove('in'));
+    islLabel.classList.remove('in');
+    ringLabel.classList.remove('in');
+    halo.classList.remove('lit');
+    halo.style.transition = 'none'; halo.style.opacity = '0';
+    void pa.getBoundingClientRect();          // 强制重排
+
+    // ① 市区 → 海傍站（0 → 1.6s）
+    pa.style.transition = 'stroke-dashoffset 1.6s cubic-bezier(.4,.05,.25,1)';
+    pa.style.strokeDashoffset = 0;
+
+    timers.push(setTimeout(() => mMetro.classList.add('in'), 160));
+    timers.push(setTimeout(() => mHai.classList.add('in'),   1520));
+
+    // ② 进岛 → 环岛一圈（1.9s → 5.3s）
+    timers.push(setTimeout(() => {
+      pr.style.transition = 'stroke-dashoffset 3.4s cubic-bezier(.36,.06,.24,1)';
+      pr.style.strokeDashoffset = 0;
+    }, 1900));
+
+    timers.push(setTimeout(() => { mIsl.classList.add('in'); islLabel.classList.add('in'); }, 2150));
+    timers.push(setTimeout(() => ringLabel.classList.add('in'), 2400));
+
+    // ③ 完成后高亮
+    timers.push(setTimeout(() => {
+      halo.style.transition = 'opacity 1.4s ease';
+      halo.style.opacity = '1';
+      halo.classList.add('lit');
+    }, 5200));
+  }
+
+  let played = false;
+  const mapIO = new IntersectionObserver((es) => {
+    es.forEach(e => {
+      if (e.isIntersecting && !played){ played = true; play(); mapIO.disconnect(); }
+    });
+  }, { threshold: 0.3 });
+  mapIO.observe($('#map'));
+
+  $('#replayBtn').addEventListener('click', play);
+})();
+
+
+/* ================================================================
+   04 · 幻灯片
+   ================================================================ */
+(function slideshow(){
+
+  const stage = $('#slideStage'), dots = $('#dots');
+  const idxEl = $('#slideIdx'), numEl = $('#slideNum'), prog = $('#slideProg');
+  const DURATION = 4000;                    // 每张停留 4 秒
+  let cur = 0, timer = null, t0 = 0, raf = null, paused = false;
+
+  // 建 DOM
+  PHOTOS.forEach((p, i) => {
+    const s = document.createElement('div');
+    s.className = 'slide' + (i === 0 ? ' on' : '');
+    s.innerHTML = photoInner(i);
+    stage.appendChild(s);
+
+    const d = document.createElement('button');
+    d.type = 'button';
+    d.setAttribute('aria-label', '第 ' + (i + 1) + ' 张');
+    if (i === 0) d.classList.add('on');
+    d.addEventListener('click', () => go(i));
+    dots.appendChild(d);
+  });
+  const slideEls = $$('.slide', stage), dotEls = $$('button', dots);
+  numEl.textContent = '1 / ' + PHOTOS.length;
+
+  function render(){
+    slideEls.forEach((s, i) => s.classList.toggle('on', i === cur));
+    dotEls.forEach((d, i) => d.classList.toggle('on', i === cur));
+    idxEl.classList.add('fade');
+    setTimeout(() => { idxEl.textContent = PHOTOS[cur].label; idxEl.classList.remove('fade'); }, 220);
+    numEl.textContent = (cur + 1) + ' / ' + PHOTOS.length;
+  }
+  function go(i){ cur = (i + PHOTOS.length) % PHOTOS.length; render(); restart(); }
+
+  // 进度条（4 秒一格）
+  function tick(ts){
+    if (!t0) t0 = ts;
+    const pct = paused ? prog._p : Math.min(100, ((ts - t0) / DURATION) * 100);
+    prog._p = pct;
+    prog.style.width = pct + '%';
+    raf = requestAnimationFrame(tick);
+  }
+  function restart(){ t0 = 0; prog._p = 0; clearTimeout(timer);
+    timer = setTimeout(() => go(cur + 1), DURATION); }
+  function pause(){ paused = true; clearTimeout(timer); }
+  function resume(){ if (paused){ paused = false; t0 = 0; restart(); } }
+
+  $('.snav.prev').addEventListener('click', () => go(cur - 1));
+  $('.snav.next').addEventListener('click', () => go(cur + 1));
+
+  const wrap = $('#slides');
+  wrap.addEventListener('mouseenter', pause);
+  wrap.addEventListener('mouseleave', resume);
+  document.addEventListener('visibilitychange', () => document.hidden ? pause() : resume());
+
+  // 触屏滑动
+  let sx = 0;
+  stage.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
+  stage.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - sx;
+    if (Math.abs(dx) > 44) go(cur + (dx < 0 ? 1 : -1));
+  }, { passive: true });
+
+  document.addEventListener('keydown', e => {
+    if ($('#lightbox').classList.contains('open')) return;
+    if (e.key === 'ArrowLeft')  go(cur - 1);
+    if (e.key === 'ArrowRight') go(cur + 1);
+  });
+
+  render(); restart(); raf = requestAnimationFrame(tick);
+})();
+
+
+/* ================================================================
+   05 · 画廊 + 灯箱
+   ================================================================ */
+(function gallery(){
+
+  const grid = $('#gallery'), lb = $('#lightbox'), frame = $('#lbFrame'), cap = $('#lbCap');
+  let lightboxIdx = 0;
+
+  PHOTOS.forEach((p, i) => {
+    const card = document.createElement('article');
+    card.className = 'gcard';
+    card.dataset.i = i;
+    card.innerHTML = `
+      <button class="gthumb" type="button" data-i="${i}" aria-label="放大查看 ${p.label}">
+        ${photoInner(i)}
+        <span class="gzoom">点击放大</span>
+      </button>
+      <div class="gbody">
+        <div class="grow"><span class="glabel">${p.label}</span><span class="gpct">0%</span></div>
+        <div class="vbar"><i></i></div>
+        <div class="grow"><span class="gcnt">0 票</span></div>
+        <button class="vbtn" type="button" data-i="${i}">投票</button>
+      </div>`;
+    grid.appendChild(card);
+  });
+
+  const cards = $$('.gcard', grid);
+
+  /* ---- 灯箱 ---- */
+  function openLb(i){
+    lightboxIdx = (i + PHOTOS.length) % PHOTOS.length;
+    frame.innerHTML = photoInner(lightboxIdx);
+    const img = frame.querySelector('img');
+    if (img) img.loading = 'eager';
+    cap.textContent = PHOTOS[lightboxIdx].label;
+    lb.classList.add('open');
+    document.body.classList.add('lb-on');
+  }
+  function closeLb(){
+    lb.classList.remove('open');
+    document.body.classList.remove('lb-on');
+    frame.innerHTML = '';
+  }
+
+  grid.addEventListener('click', e => {
+    const thumb = e.target.closest('.gthumb');
+    if (thumb){ openLb(+thumb.dataset.i); }
+  });
+  $('#lbClose').addEventListener('click', closeLb);
+  $('#lbPrev').addEventListener('click', () => openLb(lightboxIdx - 1));
+  $('#lbNext').addEventListener('click', () => openLb(lightboxIdx + 1));
+  lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape')     closeLb();
+    if (e.key === 'ArrowLeft')  openLb(lightboxIdx - 1);
+    if (e.key === 'ArrowRight') openLb(lightboxIdx + 1);
+  });
+  let tsx = 0;
+  lb.addEventListener('touchstart', e => { tsx = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - tsx;
+    if (Math.abs(dx) > 50) openLb(lightboxIdx + (dx < 0 ? 1 : -1));
+  }, { passive: true });
+
+  /* ---- 投票渲染 ---- */
+  window.__renderVotes = function(counts, total, myChoice){
+    cards.forEach((card, i) => {
+      const c   = counts[i] || 0;
+      const pct = total > 0 ? Math.round((c / total) * 100) : 0;
+      $('.gpct', card).textContent = pct + '%';
+      $('.gcnt', card).textContent = c + ' 票';
+      $('.vbar i', card).style.width = pct + '%';
+
+      const btn = $('.vbtn', card);
+      const picked = myChoice === i + 1;
+      card.classList.toggle('picked', picked);
+      btn.classList.toggle('done', picked);
+      btn.textContent = picked ? '已投票' : '投票';
+    });
+    $('#voteCount').textContent = total;
+  };
+  window.__setCardHint = function(msg){ toast(msg); };
+})();
+
+
+/* ================================================================
+   06 · Supabase 实时投票 + 实时留言
+   ================================================================ */
+(function realtime(){
+
+  const configured =
+    /^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/i.test(SUPABASE_URL.trim()) &&
+    SUPABASE_ANON_KEY.trim().length > 40;
+
+  const badge = $('#liveBadge'), liveText = $('#liveText');
+  const offlineTip = $('#offlineTip');
+  const VOTER_KEY = 'hg_voter_id', VOTE_KEY = 'hg_my_vote';
+
+  let sb = null, channel = null;
+  let msgCache = [];        // 当前展示的留言缓存（本地模式与云端模式共用）
+  let msgSig   = null;      // 留言 id 指纹，用来判断"内容有没有真的变"
+
+  /* ---------- 未配置：本地演示模式 ---------- */
+  if (!configured || typeof window.supabase === 'undefined'){
+    offlineTip.classList.add('on');
+    badge.classList.add('off');
+    liveText.textContent = typeof window.supabase === 'undefined'
+      ? '实时组件未加载 · 本地演示模式' : '未配置 Supabase · 本地演示模式';
+
+    // 本地存一存，让课堂演示不至于完全空白
+    const localVotes = JSON.parse(localStorage.getItem('hg_votes') || '{}');
+    const my = +(localStorage.getItem(VOTE_KEY) || 0);
+    const counts = [0,0,0,0];
+    Object.values(localVotes).forEach(v => counts[v - 1]++);
+    const total = Object.values(localVotes).length;
+    window.__renderVotes(counts, total, my);
+
+    $$('.vbtn').forEach(b => b.addEventListener('click', () => {
+      const id = voterId();
+      localVotes[id] = +b.dataset.i + 1;
+      localStorage.setItem('hg_votes', JSON.stringify(localVotes));
+      localStorage.setItem(VOTE_KEY, String(+b.dataset.i + 1));
+      const c2 = [0,0,0,0]; Object.values(localVotes).forEach(v => c2[v - 1]++);
+      window.__renderVotes(c2, Object.values(localVotes).length, +b.dataset.i + 1);
+      toast('已投给 ' + PHOTOS[+b.dataset.i].label + '（本地模式）');
+    }));
+
+    const localMsgs = JSON.parse(localStorage.getItem('hg_msgs') || '[]');
+    window.__renderMessages = (list) => renderMsgs(list);
+    renderMsgs(localMsgs);
+    $('#msgForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const n = $('#nameInput').value.trim(), t = $('#textInput').value.trim();
+      if (!n || !t){ hint('请把姓名和回答都填写完整'); return; }
+      localMsgs.unshift({ id: Date.now(), name: n, content: t, created_at: new Date().toISOString() });
+      localStorage.setItem('hg_msgs', JSON.stringify(localMsgs));
+      renderMsgs(localMsgs); resetForm(); toast('已提交，谢谢你的回应（本地模式）');
+    });
+    $('#clearBtn').addEventListener('click', () => {
+      if (!confirm('确定要清空全部留言吗？此操作不可撤销。')) return;
+      localStorage.setItem('hg_msgs', '[]'); renderMsgs([]); toast('已清空全部留言');
+    });
+    return;
+  }
+
+  /* ---------- 已配置：接入 Supabase ---------- */
+  sb = window.supabase.createClient(SUPABASE_URL.trim(), SUPABASE_ANON_KEY.trim());
+
+  function voterId(){
+    let v = localStorage.getItem(VOTER_KEY);
+    if (!v){
+      v = 'v-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 10);
+      localStorage.setItem(VOTER_KEY, v);
+    }
+    return v;
+  }
+
+  /* ---- 投票 ---- */
+  async function loadVotes(){
+    const { data, error } = await sb.from('votes').select('choice');
+    if (error){ console.warn('[投票读取失败]', error.message); return; }
+    const counts = [0,0,0,0];
+    (data || []).forEach(r => { if (r.choice >= 1 && r.choice <= 4) counts[r.choice - 1]++; });
+    window.__renderVotes(counts, (data || []).length, +(localStorage.getItem(VOTE_KEY) || 0));
+  }
+
+  $$('.vbtn').forEach(btn => btn.addEventListener('click', async () => {
+    const choice = +btn.dataset.i + 1;
+    btn.disabled = true;
+    const { error } = await sb.from('votes').upsert(
+      { voter_id: voterId(), choice, updated_at: new Date().toISOString() },
+      { onConflict: 'voter_id' }
+    );
+    btn.disabled = false;
+    if (error){ toast('投票失败，请重试'); console.warn(error.message); return; }
+    localStorage.setItem(VOTE_KEY, String(choice));
+    await loadVotes();
+    toast('已投给 ' + PHOTOS[choice - 1].label + ' · 可以改投别张，票会跟着走');
+  }));
+
+  /* ---- 留言 ----
+     只重绘"内容真的变了"的那一次；并且只给新出现的那几条加入场动画，
+     避免定时同步时整屏留言反复闪烁。 */
+  function renderMsgs(list){
+    const box = $('#msgList');
+    const prevIds = new Set(msgCache.map(m => m.id));
+    const isFirst = msgSig === null;
+
+    msgCache = list || [];
+    msgSig = msgCache.map(m => m.id).join(',');
+    $('#msgCount').textContent = '共 ' + msgCache.length + ' 条';
+
+    if (!msgCache.length){
+      box.innerHTML = '<div class="empty">还没有人留言，写下第一条吧。</div>';
+      return;
+    }
+    const keep = box.scrollTop;
+    box.innerHTML = msgCache.map(m => {
+      const fresh = !isFirst && !prevIds.has(m.id);
+      return `
+      <article class="msg${fresh ? ' is-new' : ''}">
+        <div class="msg-top">
+          <span class="msg-name">${esc(m.name)}</span>
+          <span class="msg-time">${relTime(m.created_at)}</span>
+        </div>
+        <div class="msg-body">${esc(m.content)}</div>
+      </article>`;
+    }).join('');
+    // 正在往下翻看时保持阅读位置；停在顶部时让新留言自然露出来
+    box.scrollTop = keep > 10 ? keep : 0;
+  }
+  window.__renderMessages = renderMsgs;
+
+  /** 只刷新"几分钟前"这类相对时间，不重建 DOM */
+  function refreshTimes(){
+    if (!msgCache.length) return;
+    $$('.msg', $('#msgList')).forEach((el, i) => {
+      const t = $('.msg-time', el);
+      if (t && msgCache[i]) t.textContent = relTime(msgCache[i].created_at);
+    });
+  }
+
+  async function loadMessages(){
+    const { data, error } = await sb.from('messages')
+      .select('id,name,content,created_at')
+      .order('created_at', { ascending: false })
+      .limit(60);
+    if (error){ console.warn('[留言读取失败]', error.message); return; }
+    const sig = (data || []).map(m => m.id).join(',');
+    if (sig === msgSig){ refreshTimes(); return; }   // 没有变化就不重绘
+    renderMsgs(data || []);
+  }
+
+  function hint(msg){
+    const el = $('#formHint');
+    el.textContent = msg;
+    clearTimeout(el._t);
+    el._t = setTimeout(() => { el.textContent = ''; }, 2600);
+  }
+  function resetForm(){ $('#textInput').value = ''; $('#charCount').textContent = '0 / 500'; }
+
+  $('#textInput').addEventListener('input', e => {
+    $('#charCount').textContent = e.target.value.length + ' / 500';
+  });
+
+  $('#msgForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const name = $('#nameInput').value.trim();
+    const content = $('#textInput').value.trim();
+    if (!name){ hint('请先填写你的姓名'); $('#nameInput').focus(); return; }
+    if (!content){ hint('请写下你的回答'); $('#textInput').focus(); return; }
+
+    const btn = $('#submitBtn');
+    btn.disabled = true; btn.textContent = '提交中…';
+    const { error } = await sb.from('messages').insert({ name, content });
+    btn.disabled = false; btn.textContent = '提交留言';
+
+    if (error){
+      hint('提交失败：' + (error.message || '请检查网络后重试'));
+      console.warn(error);
+      return;
+    }
+    resetForm();
+    toast('已提交，谢谢你的回应');
+    setTimeout(loadMessages, 260);            // 兜底拉取（Realtime 通常更快）
+  });
+
+  $('#clearBtn').addEventListener('click', async () => {
+    if (!confirm('确定要清空全部留言吗？\n所有同学屏幕上的留言都会一起消失，此操作不可撤销。')) return;
+    const { error } = await sb.from('messages').delete().gte('id', 0);
+    if (error){ toast('清空失败：' + error.message); return; }
+    toast('已清空全部留言');
+    setTimeout(loadMessages, 200);
+  });
+
+  /* ---- Realtime 订阅 ---- */
+  let voteTimer = null, msgTimer = null;
+  const debounce = (fn, ms) => { clearTimeout(fn._t); fn._t = setTimeout(fn, ms); };
+
+  channel = sb.channel('haigui-room', {
+    config: { presence: { key: voterId() } }
+  })
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'votes' },
+        () => debounce(loadVotes, 260))
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'messages' },
+        () => debounce(loadMessages, 260))
+    .on('presence', { event: 'sync' }, () => {
+      const n = Object.keys(channel.presenceState()).length;
+      liveText.textContent = '实时同步中 · 当前 ' + n + ' 台设备在线';
+    })
+    .subscribe(status => {
+      if (status === 'SUBSCRIBED'){
+        badge.classList.remove('off');
+        liveText.textContent = '实时同步中 · 正在统计在线设备';
+        channel.track({ at: Date.now() });
+      } else if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT' || status === 'CLOSED'){
+        badge.classList.add('off');
+        liveText.textContent = '实时连接中断 · 已开启定时同步';
+      }
+    });
+
+  /* ---- 首屏加载 + 定时兜底同步（校园网抖动时的保险） ---- */
+  loadVotes();
+  loadMessages();
+  setInterval(() => { loadVotes(); loadMessages(); }, 20000);
+
+  // 相对时间（"3 分钟前"）每 30 秒刷新一次，不重建列表
+  setInterval(refreshTimes, 30000);
+})();
+
+
+/* ================================================================
+   07 · 二维码
+   ----------------------------------------------------------------
+   下面是"何以成人，青年何为"课堂页面的二维码（已内嵌，无需联网）。
+   若页面最终地址与此二维码不一致，页面会自动提示。
+   重新生成二维码的方法见 README-部署说明.md。
+   ================================================================ */
+(function qr(){
+  const TARGET = 'https://lorina2026.github.io/Lorina/haigui/';
+  const qrBox = $('#qrBox'), qrUrl = $('#qrUrl'), qrWarn = $('#qrWarn');
+
+  qrBox.innerHTML = '<svg viewBox="0 0 39 39" class="segno"><path class="qrline" stroke="#34312d" d="M3 3.5h7m1 0h2m1 0h1m2 0h1m1 0h2m1 0h2m2 0h1m2 0h7m-33 1h1m5 0h1m2 0h1m1 0h1m1 0h2m2 0h1m2 0h2m2 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m2 0h7m1 0h2m2 0h1m1 0h1m2 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m2 0h2m1 0h3m4 0h1m2 0h3m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h4m1 0h2m1 0h1m2 0h1m1 0h1m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h1m5 0h1m1 0h1m4 0h1m4 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-24 1h1m1 0h1m2 0h3m1 0h1m2 0h3m-23 1h7m1 0h2m2 0h1m1 0h1m1 0h1m5 0h2m2 0h2m3 0h1m-33 1h1m1 0h1m1 0h1m5 0h1m1 0h3m3 0h6m2 0h2m1 0h2m1 0h1m-32 1h1m1 0h1m1 0h5m1 0h3m1 0h1m2 0h1m1 0h2m3 0h2m1 0h1m1 0h1m-31 1h1m4 0h1m2 0h1m1 0h1m1 0h1m1 0h2m3 0h4m1 0h3m1 0h3m1 0h1m-33 1h2m4 0h2m3 0h4m1 0h1m1 0h1m3 0h4m1 0h3m-28 1h1m1 0h1m2 0h1m2 0h3m1 0h1m6 0h1m1 0h4m2 0h1m1 0h2m-32 1h1m1 0h4m7 0h4m2 0h1m4 0h3m3 0h1m-28 1h2m2 0h3m2 0h1m4 0h4m2 0h3m1 0h3m-31 1h2m1 0h1m2 0h2m2 0h3m1 0h3m2 0h1m4 0h2m1 0h2m3 0h1m-32 1h1m5 0h2m3 0h3m2 0h4m1 0h2m2 0h2m1 0h2m1 0h1m-33 1h1m5 0h2m1 0h1m3 0h1m4 0h1m2 0h1m2 0h1m2 0h2m1 0h2m-32 1h1m9 0h1m1 0h1m3 0h2m1 0h6m1 0h6m-32 1h1m3 0h1m1 0h5m2 0h1m2 0h4m2 0h1m1 0h2m1 0h1m1 0h1m1 0h1m-32 1h2m1 0h1m4 0h1m6 0h1m3 0h1m1 0h1m1 0h1m2 0h1m5 0h1m-33 1h1m2 0h6m1 0h4m2 0h3m1 0h2m2 0h3m1 0h4m-32 1h1m1 0h1m2 0h1m8 0h1m3 0h1m2 0h1m1 0h1m4 0h5m-33 1h1m1 0h1m3 0h2m3 0h1m4 0h1m2 0h1m3 0h6m3 0h1m-25 1h1m2 0h3m1 0h3m1 0h1m1 0h4m3 0h1m1 0h3m-33 1h7m1 0h3m2 0h3m2 0h1m3 0h3m1 0h1m1 0h1m1 0h2m-32 1h1m5 0h1m1 0h2m3 0h2m3 0h7m3 0h3m-31 1h1m1 0h3m1 0h1m1 0h3m1 0h1m1 0h1m3 0h1m3 0h1m1 0h6m2 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m2 0h3m5 0h5m1 0h1m2 0h2m2 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m2 0h1m2 0h1m2 0h2m1 0h1m-30 1h1m5 0h1m1 0h3m4 0h2m1 0h1m1 0h2m4 0h1m1 0h1m1 0h1m-31 1h7m2 0h4m2 0h1m2 0h1m1 0h1m2 0h3m1 0h1m3 0h1"/></svg>';      // 由构建脚本注入内嵌 SVG
+  qrUrl.textContent = TARGET;
+
+  const here = location.origin + location.pathname.replace(/index\.html$/, '');
+  if (!/^https?:$/.test(location.protocol) || here.replace(/\/$/, '') !== TARGET.replace(/\/$/, '')){
+    qrWarn.classList.add('on');
+    qrWarn.textContent = '提示：当前页面地址与二维码指向的地址不一致（在本机双击预览时属正常）。正式展示请用上方链接。';
+  }
+
+  /* ---- 点击全屏放大：投屏时让全班一起扫 ---- */
+  const full = $('#qrFull'), fullBox = $('#qrFullBox'), card = $('#qrCard');
+  function openFull(){
+    const svg = $('#qrBox svg');
+    if (!svg) return;
+    fullBox.innerHTML = '';
+    fullBox.appendChild(svg.cloneNode(true));
+    full.classList.add('open');
+  }
+  function closeFull(){ full.classList.remove('open'); fullBox.innerHTML = ''; }
+
+  card.addEventListener('click', openFull);
+  full.addEventListener('click', closeFull);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && full.classList.contains('open')) closeFull();
+  });
+})();
+</script>
+</body>
+</html>
