@@ -148,7 +148,7 @@ body::after{
 .hero{
   position:relative; min-height:100vh; min-height:100svh; display:flex; flex-direction:column;
   align-items:center; justify-content:center; text-align:center;
-  padding:calc(var(--nav-h) + 40px) clamp(20px,5vw,60px) 0;
+  padding:calc(var(--nav-h) + 30px) clamp(20px,5vw,60px) 22vh;
   overflow:hidden; isolation:isolate;
   background:
     radial-gradient(130% 62% at 50% 100%, rgba(250,224,180,1) 0%, rgba(242,192,148,.82) 20%, rgba(233,166,94,.36) 42%, rgba(233,166,94,0) 66%),
@@ -158,23 +158,26 @@ body::after{
 }
 /* 落日 */
 .hero-sun{
-  position:absolute; left:50%; bottom:12.5%; width:min(34vw,330px); aspect-ratio:1;
+  position:absolute; left:50%; bottom:4.5%; width:min(27vw,260px); aspect-ratio:1;
   transform:translateX(-50%); border-radius:50%; z-index:0; pointer-events:none;
-  background:radial-gradient(circle at 50% 50%, #FFF6E6 0%, #FFE7C2 32%, rgba(255,214,158,.55) 58%, rgba(255,214,158,0) 72%);
-  filter:blur(3px); animation:sunBreathe 11s ease-in-out infinite;
+  background:radial-gradient(circle at 50% 50%, #FFFDF6 0%, #FFF0D6 16%, rgba(255,228,184,.78) 34%, rgba(255,216,162,.3) 54%, rgba(255,216,162,0) 71%);
+  filter:blur(2.5px); animation:sunBreathe 11s ease-in-out infinite;
 }
 @keyframes sunBreathe{ 0%,100%{ opacity:.9; transform:translateX(-50%) scale(1); }
   50%{ opacity:1; transform:translateX(-50%) scale(1.035); } }
 /* 江面：太阳倒影 + 波纹 */
 .hero-water{ position:absolute; left:0; right:0; bottom:0; height:26%; z-index:1; pointer-events:none;
   background:linear-gradient(180deg, rgba(226,168,104,.42) 0%, rgba(206,150,96,.2) 35%, rgba(150,130,110,.08) 70%, rgba(120,120,120,0) 100%); }
+/* 落日在水面的倒影：用椭圆渐变收窄，避免糊成一个方块 */
 .hero-glint{
   position:absolute; left:50%; bottom:0; transform:translateX(-50%);
-  width:min(16vw,160px); height:100%;
-  background:linear-gradient(180deg, rgba(255,240,214,.5), rgba(255,236,200,0) 88%);
-  filter:blur(9px);
+  width:min(34vw,340px); height:100%;
+  background:radial-gradient(ellipse 50% 96% at 50% 100%,
+              rgba(255,244,222,.62) 0%, rgba(255,238,206,.3) 34%,
+              rgba(255,234,196,.1) 58%, rgba(255,234,196,0) 78%);
+  filter:blur(11px);
 }
-.hero-ripple{ position:absolute; left:0; right:0; height:1px; background:rgba(255,244,226,.42); }
+.hero-ripple{ position:absolute; left:0; right:0; height:1px; background:rgba(255,246,230,.5); }
 /* 海鸥 */
 .gull{ position:absolute; z-index:2; opacity:0; animation:gullFly linear infinite; }
 @keyframes gullFly{
@@ -192,7 +195,7 @@ body::after{
 }
 .hero h1{
   font-family:var(--font-display); font-weight:400;
-  font-size:clamp(42px,6.6vw,96px); line-height:1.22;
+  font-size:clamp(29px,7.4vw,96px); line-height:1.26;
   letter-spacing:.1em; text-indent:.1em; margin:0;
   color:#FFFBF3; text-shadow:0 4px 40px rgba(26,40,48,.42), 0 1px 3px rgba(26,40,48,.3);
 }
@@ -205,13 +208,20 @@ body::after{
   color:rgba(255,250,242,.95); text-shadow:0 2px 22px rgba(26,40,48,.45);
 }
 .hero-note{
-  margin-top:clamp(26px,4.5vh,46px);
-  font-size:clamp(12.5px,1.16vw,15.5px); letter-spacing:.2em; line-height:2.1;
-  color:rgba(255,248,238,.78); text-shadow:0 2px 14px rgba(26,40,48,.5);
+  display:inline-block; max-width:100%; margin-top:clamp(26px,4.5vh,46px);
+  padding:8px 26px; border-radius:22px;
+  font-size:clamp(12.5px,1.2vw,16px); letter-spacing:.16em; line-height:1.95;
+  color:rgba(255,250,243,.95);
+  background:rgba(32,46,54,.16);
+  -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px);
+  text-shadow:0 2px 14px rgba(26,40,48,.6);
+  overflow-wrap:break-word;
 }
 .hero-scroll{ position:absolute; left:50%; bottom:clamp(18px,3.5vh,34px); transform:translateX(-50%);
-  z-index:4; display:flex; flex-direction:column; align-items:center; gap:9px;
-  font-size:11.5px; letter-spacing:.34em; text-indent:.34em; color:rgba(255,250,242,.72); }
+  z-index:4; display:flex; flex-direction:column; align-items:center; gap:9px; text-decoration:none;
+  font-size:11.5px; letter-spacing:.34em; text-indent:.34em; color:rgba(255,251,245,.92);
+  text-shadow:0 2px 12px rgba(120,86,40,.55); transition:color .4s var(--ease); }
+.hero-scroll:hover{ color:#fff; }
 .hero-scroll span{ writing-mode:vertical-rl; letter-spacing:.3em; }
 .hero-scroll i{ display:block; width:1px; height:46px; background:rgba(255,250,242,.5); position:relative; overflow:hidden; }
 .hero-scroll i::after{ content:''; position:absolute; inset:0; background:#FFF6E6;
@@ -256,14 +266,20 @@ body::after{
   background:radial-gradient(70% 60% at 78% 12%, rgba(240,196,138,.16), transparent 70%);
 }
 #map{ width:100%; height:auto; display:block; position:relative; z-index:1; }
-#map .island-body{ fill:url(#islandGrad); stroke:#C9A97C; stroke-width:1.4; }
-#map .island-inner{ fill:none; stroke:rgba(201,169,124,.34); stroke-width:.9; stroke-dasharray:3 5; }
+#map .island-body{ fill:url(#islandGrad); stroke:#C6A276; stroke-width:1.5; }
+#map .island-inner{ fill:none; stroke:rgba(198,162,118,.28); stroke-width:.9; stroke-dasharray:3 5; }
 #map .water-line{ stroke:rgba(110,147,160,.26); stroke-width:1; fill:none; stroke-linecap:round; }
 #map .water-dots{ fill:rgba(110,147,160,.22); }
-#map .farm{ stroke:rgba(150,160,110,.45); stroke-width:1.1; fill:none; stroke-linecap:round; }
-#map .water-label{ fill:rgba(110,147,160,.55); font-family:var(--font-display); font-size:15px; letter-spacing:.34em; }
+#map .farm{ stroke:rgba(158,168,112,.4); stroke-width:1.1; fill:none; stroke-linecap:round; }
+#map .water-label{ fill:rgba(110,147,160,.6); font-family:var(--font-display); font-size:15px; letter-spacing:.34em; }
 
-.route-approach,.route-ring{ fill:none; stroke:url(#routeGrad); stroke-linecap:round; stroke-linejoin:round; stroke-width:3.4; }
+/* 环岛路：先铺一道米白描边当作"底衬"，再叠暖金实线，
+   这样即使画在浅沙色的岛体上也足够跳出来 */
+.route-casing{ fill:none; stroke:#FCF7EC; stroke-width:8.5; stroke-linecap:round; stroke-linejoin:round;
+  opacity:0; transition:opacity 1.2s var(--ease); }
+.route-casing.lit{ opacity:.92; }
+/* 用实色暖金而不是渐变：环岛线画在沙色岛体上，渐变浅端几乎看不见 */
+.route-approach,.route-ring{ fill:none; stroke:#CE8C3A; stroke-linecap:round; stroke-linejoin:round; stroke-width:3.4; }
 .route-halo{ fill:none; stroke:rgba(224,164,88,.2); stroke-width:11; stroke-linecap:round; opacity:0; transition:opacity 1.4s var(--ease); }
 .route-halo.lit{ opacity:1; }
 
@@ -275,11 +291,16 @@ body::after{
   transform-box:fill-box; transform-origin:center; }
 .mk.pulse .mk-ring{ animation:mkPulse 2.6s var(--ease) infinite; }
 @keyframes mkPulse{ 0%{ opacity:.8; transform:scale(.6); } 70%{ opacity:0; transform:scale(2.1); } 100%{ opacity:0; transform:scale(2.1); } }
-.mk-label{ font-family:var(--font-display); font-size:16.5px; fill:var(--sea-deep); letter-spacing:.06em; }
-.mk-label.gold{ fill:var(--gold-deep); }
-.mk-label.sm{ font-size:14px; fill:var(--ink-soft); letter-spacing:.04em; }
-.isl-name{ font-family:var(--font-display); font-size:19px; fill:#8A6A3C; letter-spacing:.2em; opacity:0; transition:opacity 1.2s var(--ease); }
-.isl-name.in{ opacity:.92; }
+
+/* 地图上所有文字都加一圈米白描边，压在岛体/水纹上也读得清 */
+.mk-label,.isl-name,.water-label{
+  paint-order:stroke fill; stroke:#FBF7F0; stroke-width:4.5px; stroke-linejoin:round; }
+.mk-label{ font-family:var(--font-display); font-size:17px; fill:var(--sea-deep); letter-spacing:.06em; }
+.mk-label.gold{ fill:var(--gold-deep); font-size:20px; letter-spacing:.16em; }
+.mk-label.sm{ font-size:14.5px; fill:var(--ink-soft); letter-spacing:.04em; }
+.isl-name{ font-family:var(--font-display); font-size:20px; fill:#8A6533; letter-spacing:.2em;
+  stroke-width:5px; opacity:0; transition:opacity 1.2s var(--ease); }
+.isl-name.in{ opacity:1; }
 .mk-text{ opacity:0; transition:opacity 1.1s var(--ease); }
 .mk-text.in{ opacity:1; }
 
@@ -458,7 +479,8 @@ body.lb-on{ overflow:hidden; }
 .coda{ text-align:center; }
 .coda-line{
   font-family:var(--font-display); font-size:clamp(22px,2.7vw,38px); line-height:1.9;
-  letter-spacing:.14em; text-indent:.14em; color:var(--sea-deep); margin:0 0 clamp(34px,5vh,54px);
+  letter-spacing:.14em; text-indent:.14em; color:var(--sea-deep);
+  text-align:center; margin:0 0 clamp(34px,5vh,54px);
 }
 .coda-line b{ font-weight:400; color:var(--gold-deep); }
 .coda .prose{ text-align:left; }
@@ -624,7 +646,10 @@ body.lb-on{ overflow:hidden; }
   .msg-list{ max-height:64vh; }
 }
 @media (max-width:420px){
-  .hero h1{ letter-spacing:.06em; }
+  .hero h1{ letter-spacing:.04em; text-indent:.04em; }
+  .hero-eyebrow{ letter-spacing:.26em; text-indent:.26em; }
+  .hero h2{ letter-spacing:.14em; text-indent:.14em; }
+  .hero-note{ letter-spacing:.05em; padding:8px 18px; }
 }
 </style>
 </head>
@@ -708,15 +733,15 @@ body.lb-on{ overflow:hidden; }
           </linearGradient>
           <!-- 岛屿 -->
           <linearGradient id="islandGrad" x1="0.05" y1="0" x2="0.95" y2="1">
-            <stop offset="0%"   stop-color="#FBF3E4"/>
-            <stop offset="45%"  stop-color="#F5E7CF"/>
-            <stop offset="100%" stop-color="#EFDFC6"/>
+            <stop offset="0%"   stop-color="#FBF5EA"/>
+            <stop offset="45%"  stop-color="#F4EAD8"/>
+            <stop offset="100%" stop-color="#EEE2CD"/>
           </linearGradient>
-          <!-- 路线暖金渐变 -->
+          <!-- 路线暖金渐变（整体压深一档，画在沙色岛体上也要够跳） -->
           <linearGradient id="routeGrad" x1="0.05" y1="1" x2="0.95" y2="0">
-            <stop offset="0%"   stop-color="#F0C48A"/>
-            <stop offset="42%"  stop-color="#E0A458"/>
-            <stop offset="100%" stop-color="#C98A3E"/>
+            <stop offset="0%"   stop-color="#E3A85E"/>
+            <stop offset="42%"  stop-color="#D08E39"/>
+            <stop offset="100%" stop-color="#B8762A"/>
           </linearGradient>
           <!-- 手绘抖动 -->
           <filter id="rough" x="-8%" y="-8%" width="116%" height="116%">
@@ -742,6 +767,7 @@ body.lb-on{ overflow:hidden; }
         <g id="farmLayer"></g>
 
         <!-- 路线 -->
+        <path id="routeCasing" class="route-casing" d=""/>
         <path id="routeHalo"   class="route-halo" d=""/>
         <path id="routeApproach" class="route-approach" d=""/>
         <path id="routeRing"   class="route-ring" d=""/>
@@ -751,9 +777,8 @@ body.lb-on{ overflow:hidden; }
       </svg>
 
       <div class="map-foot">
-        <span class="legend"><i></i> 行走路线</span>
-        <span class="legend r"></span>
-        <span class="legend" style="margin-left:-18px">环岛一圈</span>
+        <span class="legend"><i></i>行走路线</span>
+        <span class="legend r"><i></i>环岛一圈</span>
         <button class="replay" id="replayBtn" type="button">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
           重播轨迹
@@ -834,7 +859,7 @@ body.lb-on{ overflow:hidden; }
     <div class="narrow fieldnote reveal" style="--d:120ms">
       <span class="mark">田野笔记</span>
       <div class="prose">
-        <p>站在海鸥岛的江边，看着落日铺在水面上，我感受到珠三角江海共生的乡土文化。这里有奔流的江水，有滩涂农田，也有依江而居的朴素生活。广州城市发展很快，但海鸥岛仍然保留着安静、松弛、自然的节奏。这种慢文化让我重新理解了行走的意义。结合《大学生文化素养》课程，我意识到旅行不只是打卡，<em class="k">更是阅读土地、阅读生活、阅读自我</em>。行走让我打开感官，提升观察力、审美力与人文感知力。</p>
+        <p>站在海鸥岛的江边，看着落日铺在水面上，我感受到珠三角江海共生的乡土文化。这里有奔流的江水，有滩涂农田，也有依江而居的朴素生活。广州城市发展很快，但海鸥岛仍然保留着安静、松弛、自然的节奏。这种慢文化让我重新理解了行走的意义。结合《大学生文化素养》课程，我意识到旅行不只是打卡，<em class="k">更是阅读土地、阅读生活、阅读自我。</em>行走让我打开感官，提升观察力、审美力与人文感知力。</p>
       </div>
     </div>
   </div>
@@ -849,7 +874,7 @@ body.lb-on{ overflow:hidden; }
       <span class="sec-rule"></span>
     </div>
     <div class="narrow prose reveal" style="--d:120ms">
-      <p>海鸥岛的自然氛围，也让我联想到特殊教育专业。岛上的草木、飞鸟、江面与风浪，都有自己的节奏。<em class="k">江海包容风浪，自然容纳不同生命共同生长</em>，这让我想到特殊教育中“接纳多元”的理念。每个孩子都是独特的，成长速度不同，发展方式也不同，<em class="k">不能用同一套标准去衡量所有人</em>。未来作为特教工作者，我需要像江海一样温柔、耐心、共情，学会尊重每个生命的成长节奏。这次慢行走让我沉淀心性，也更加坚定温柔育人的初心。</p>
+      <p>海鸥岛的自然氛围，也让我联想到特殊教育专业。岛上的草木、飞鸟、江面与风浪，都有自己的节奏。<em class="k">江海包容风浪，自然容纳不同生命共同生长，</em>这让我想到特殊教育中“接纳多元”的理念。每个孩子都是独特的，成长速度不同，发展方式也不同，<em class="k">不能用同一套标准去衡量所有人。</em>未来作为特教工作者，我需要像江海一样温柔、耐心、共情，学会尊重每个生命的成长节奏。这次慢行走让我沉淀心性，也更加坚定温柔育人的初心。</p>
     </div>
   </div>
 </section>
@@ -868,7 +893,7 @@ body.lb-on{ overflow:hidden; }
     </p>
 
     <div class="narrow prose coda reveal" style="--d:160ms">
-      <p>这次海鸥岛之行，让我对“何以成人，青年何为”有了更具体的理解。何以成人，不在于年龄增长，而在于走出校园后能否看见真实生活，能否学会沉静观察、包容差异与自我反思。青年何为，不是只停留在书本里，而是要把读书与行走结合起来。<em class="k">向内读书，向外行走</em>，在自然与生活中沉淀人文素养，建立温柔而坚定的内心力量，这就是我理解中的青年成长之路。</p>
+      <p>这次海鸥岛之行，让我对“何以成人，青年何为”有了更具体的理解。何以成人，不在于年龄增长，而在于走出校园后能否看见真实生活，能否学会沉静观察、包容差异与自我反思。青年何为，不是只停留在书本里，而是要把读书与行走结合起来。<em class="k">向内读书，向外行走，</em>在自然与生活中沉淀人文素养，建立温柔而坚定的内心力量，这就是我理解中的青年成长之路。</p>
     </div>
   </div>
 </section>
@@ -1059,10 +1084,26 @@ function photoInner(i){
 /* ================================================================
    02 · 入场渐显 / 导航
    ================================================================ */
-const io = new IntersectionObserver((es) => {
-  es.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-}, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-$$('.reveal').forEach(el => io.observe(el));
+const revealEls = $$('.reveal');
+
+if ('IntersectionObserver' in window){
+  const io = new IntersectionObserver((es) => {
+    es.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  revealEls.forEach(el => io.observe(el));
+
+  // 保险：讲课途中万一有板块没被触发（浏览器异常、快速拖动滚动条等），
+  // 只要它已经进入视口就补一次显示，绝不让投屏上出现空白板块。
+  const sweep = () => revealEls.forEach(el => {
+    if (el.classList.contains('in')) return;
+    const r = el.getBoundingClientRect();
+    if (r.top < window.innerHeight * 0.92 && r.bottom > 0) el.classList.add('in');
+  });
+  window.addEventListener('load', () => setTimeout(sweep, 900));
+  window.addEventListener('scroll', () => { clearTimeout(sweep._t); sweep._t = setTimeout(sweep, 260); }, { passive: true });
+} else {
+  revealEls.forEach(el => el.classList.add('in'));
+}
 
 // 导航背景 + 阅读进度 + 当前板块高亮
 const nav = $('#nav'), navBar = $('#navProgress');
@@ -1093,12 +1134,21 @@ onScroll();
   const NS = 'http://www.w3.org/2000/svg';
   const W = 960, H = 460;
 
-  /* ---- 岛屿轮廓（相对坐标点，按长轴方向排布）---- */
+  /* ---- 岛屿轮廓 ----
+     沿长轴西南 → 东北排布，中间故意留几处凹口当作海湾，
+     免得平滑之后变成一颗规规矩矩的橄榄球。 */
   const OUTLINE = [
-    [372, 306], [398, 268], [452, 230], [524, 198],
-    [608, 166], [700, 138], [786, 118], [850, 116],
-    [888, 138], [872, 178], [818, 212], [742, 246],
-    [654, 278], [562, 302], [470, 318], [404, 322]
+    // 北岸：自西南岬角折向东北
+    [352, 300], [398, 252], [462, 226],
+    [520, 240],                                   // ← 湾
+    [568, 204], [634, 174], [700, 166],
+    [752, 138], [812, 118], [868, 114],           // 北岬
+    // 东端
+    [898, 140], [884, 178],
+    // 南岸：折回西南
+    [830, 196], [778, 226],                       // ← 湾
+    [712, 250], [652, 270], [596, 284],
+    [540, 302], [478, 322], [420, 332], [376, 322]
   ];
   const cx = OUTLINE.reduce((s,p) => s + p[0], 0) / OUTLINE.length;
   const cy = OUTLINE.reduce((s,p) => s + p[1], 0) / OUTLINE.length;
@@ -1142,8 +1192,8 @@ onScroll();
   const START  = ringPts[0];                                    // 环岛起点（岛西南端）
   const METRO  = [96, 400];                                     // 华师站 D 口（市区）
   const HAIBANG = [252, 352];                                   // 海傍站 G 口（对岸）
-  const ISL_NAME = [628, 172];                                  // 岛名标注位置
-  const RING_LABEL = [628, 84];                                 // 「环岛一圈」标注位置
+  const ISL_NAME   = [620, 84];                                 // 岛名标注（岛北侧江面上）
+  const RING_LABEL = [580, 250];                                // 「环岛一圈」标注（环线正中偏西，避开环线）
 
   // 进岛路线：华师D口 → 海傍G口 → 环岛起点
   const approachD =
@@ -1183,16 +1233,16 @@ onScroll();
     }
   }
 
-  // 岛上的田垄 / 芦苇（几笔带过）
+  // 岛上的田垄（几笔带过）——只放在环线内侧的空地上，避开中间的「环岛一圈」字样
   const farm = $('#farmLayer');
-  [[470, 262, 74], [560, 232, 86], [656, 200, 92], [742, 176, 74], [520, 288, 60], [610, 258, 70]]
+  [[462, 198, 56], [456, 282, 58], [742, 190, 70], [762, 262, 62]]
     .forEach(([x, y, len]) => {
-      for (let k = 0; k < 4; k++){
+      for (let k = 0; k < 3; k++){
         const p = document.createElementNS(NS, 'path');
         const yy = y + k * 7;
         p.setAttribute('d', `M ${x} ${yy} q ${len/2} -4 ${len} 0`);
         p.setAttribute('class', 'farm');
-        p.setAttribute('opacity', (0.5 - k * 0.08).toFixed(2));
+        p.setAttribute('opacity', (0.55 - k * 0.13).toFixed(2));
         farm.appendChild(p);
       }
     });
@@ -1210,7 +1260,8 @@ onScroll();
     const ring = document.createElementNS(NS, 'circle');
     ring.setAttribute('cx', x); ring.setAttribute('cy', y); ring.setAttribute('r', opt.big ? 11 : 9);
     ring.setAttribute('class', 'mk-ring');
-    ring.style.transformOrigin = `${x}px ${y}px`;
+    // 注意：不要在这里设 transform-origin，交给 CSS 的 transform-box:fill-box + center，
+    // 否则缩放会绕到元素外的点，脉冲圈会飞到别处去
 
     const dot = document.createElementNS(NS, 'circle');
     dot.setAttribute('cx', x); dot.setAttribute('cy', y);
@@ -1264,8 +1315,10 @@ onScroll();
   islLabel.setAttribute('y', ISL_NAME[1]);
 
   /* ---- 轨迹绘制动画 ---- */
-  const pa = $('#routeApproach'), pr = $('#routeRing'), halo = $('#routeHalo');
+  const pa = $('#routeApproach'), pr = $('#routeRing');
+  const halo = $('#routeHalo'), casing = $('#routeCasing');
   halo.setAttribute('d', approachD);
+  casing.setAttribute('d', ringD + ' ' + approachD);   // 一条路径两段子路径
   const la = pa.getTotalLength(), lr = pr.getTotalLength();
 
   [pa, pr].forEach(p => {
@@ -1288,6 +1341,7 @@ onScroll();
     ringLabel.classList.remove('in');
     halo.classList.remove('lit');
     halo.style.transition = 'none'; halo.style.opacity = '0';
+    casing.classList.remove('lit');
     void pa.getBoundingClientRect();          // 强制重排
 
     // ① 市区 → 海傍站（0 → 1.6s）
@@ -1306,11 +1360,12 @@ onScroll();
     timers.push(setTimeout(() => { mIsl.classList.add('in'); islLabel.classList.add('in'); }, 2150));
     timers.push(setTimeout(() => ringLabel.classList.add('in'), 2400));
 
-    // ③ 完成后高亮
+    // ③ 完成后高亮：米白底衬 + 金色光晕一起亮起来
     timers.push(setTimeout(() => {
       halo.style.transition = 'opacity 1.4s ease';
       halo.style.opacity = '1';
       halo.classList.add('lit');
+      casing.classList.add('lit');
     }, 5200));
   }
 
