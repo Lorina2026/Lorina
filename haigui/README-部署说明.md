@@ -33,13 +33,25 @@
 
 ## 第二步 · 把密钥填进网页
 
-1. 回到 Supabase，左侧 **Project Settings**（齿轮图标）→ **API**。
+1. 回到 Supabase，找到左边竖排菜单的**最下面**，点 **Project Settings**（齿轮图标）。
 
-2. 页面上能找到两样东西，分别复制：
-   - **Project URL** —— 形如 `https://abcdefgh.supabase.co`
-   - **Project API keys** 里的 **anon / public** —— 一长串 `eyJ...` 开头的字符
+2. 在这个页面里找这两样东西，分别复制：
 
-   > ⚠️ 只复制 **anon public** 那一条。下面还有一条 `service_role`，那是最高权限密钥，**绝对不要**填进网页，否则任何人查看网页源码就能拿到它。
+   **① Project URL** —— 形如 `https://abcdefgh.supabase.co`
+   位置：**Data API** 这一节，或者项目首页顶部 **Connect** 按钮弹出的面板里。
+
+   **② API Key** —— 下面两种格式**任选一条**填进去就行，效果完全一样：
+
+   | 你看到的格式 | 说明 |
+   |---|---|
+   | `sb_publishable_...` 开头 | Supabase 的新格式，直接复制 |
+   | `eyJ...` 开头的一长串 | 旧格式，在 **Legacy API keys** 标签页里 |
+
+   > ⚠️ **不要**复制 `service_role` 或 `sb_secret_` 开头的那条 —— 那是最高权限密钥。
+   > 网页源码谁都能看，填进去等于把数据库钥匙公开。
+   > 判断方法很简单：**带 `publishable`、`public`、`anon` 字样的才安全**，带 `secret`、`service_role` 的一律不要。
+
+   > 💡 找不到的话，点项目页面顶部的绿色 **Connect** 按钮，弹出的面板里 Project URL 和可公开的 Key 都在一起，直接复制最省事。
 
 3. 用记事本或 VS Code 打开 `index.html`，**翻到文件最底部**（在 `</body>` 往上一点的地方），找到这段带星号的注释：
 

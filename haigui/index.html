@@ -1001,7 +1001,7 @@ body.lb-on{ overflow:hidden; }
 <div class="toast" id="toast"></div>
 
 <!-- Supabase 官方 SDK（若课堂网络加载失败，页面会自动进入本地演示模式，不会白屏） -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
 
 <script>
 /* ================================================================
@@ -1009,16 +1009,26 @@ body.lb-on{ overflow:hidden; }
    ★                                                              ★
    ★   配 置 区 —— 只 需 修 改 下 面 两 行                          ★
    ★                                                              ★
-   ★   打开 Supabase 控制台 → 左侧 Project Settings → API          ★
-   ★   1) SUPABASE_URL      = Project URL   （形如 https://abcd.supabase.co）★
-   ★   2) SUPABASE_ANON_KEY = anon public   （一长串 eyJ 开头的字符串）    ★
+   ★   在 Supabase 控制台里找这两个值：                             ★
    ★                                                              ★
-   ★   注意：要填 anon public 这一条，不要填 service_role（那是密钥，会泄密）★
-   ★   建表 SQL 见同目录 supabase-建表.sql，先把表建好再填这里        ★
+   ★   1) SUPABASE_URL                                          ★
+   ★      形如 https://abcdefgh.supabase.co                       ★
+   ★      位置：Project Settings → Data API（面板顶部也有）          ★
+   ★                                                              ★
+   ★   2) SUPABASE_ANON_KEY                                     ★
+   ★      两种格式都行，填其中一条即可：                             ★
+   ★        · 新格式：sb_publishable_ 开头                          ★
+   ★        · 旧格式：eyJ 开头的一长串（在 Legacy API keys 标签页里）★
+   ★      位置：Project Settings → API Keys                        ★
+   ★                                                              ★
+   ★   ⚠️ 千万不要填 service_role / sb_secret_ 开头的那条，          ★
+   ★      它是最高权限密钥，网页源码谁都能看，填进去等于公开数据库钥匙。★
+   ★                                                              ★
+   ★   建表 SQL 见同目录 supabase-建表.sql，先把表建好再填这里。      ★
    ★                                                              ★
    ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ */
 const SUPABASE_URL      = '';   // ← 在这里粘贴 Project URL
-const SUPABASE_ANON_KEY = '';   // ← 在这里粘贴 anon public key
+const SUPABASE_ANON_KEY = '';   // ← 在这里粘贴 anon / publishable key
 /* ★★★★★★★★★★★ 配置区结束，以下内容都不需要改动 ★★★★★★★★★★★ */
 
 
