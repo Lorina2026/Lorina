@@ -596,7 +596,22 @@ body.lb-on{ overflow:hidden; }
 
 .foot{ text-align:center; padding:44px 20px 60px; font-size:.82em; letter-spacing:.14em;
   color:var(--ink-faint); border-top:1px solid rgba(201,138,62,.1); }
+.foot-line{ margin:0; }
 .foot .dot{ margin:0 10px; opacity:.5; }
+
+/* 页脚制作信息 */
+.credits{
+  margin:clamp(26px,3.6vh,40px) auto 0;
+  padding-top:clamp(20px,2.8vh,30px);
+  max-width:780px;
+  border-top:1px solid rgba(201,138,62,.13);
+  display:flex; flex-wrap:wrap; align-items:baseline; justify-content:center;
+  gap:12px clamp(20px,3.4vw,46px);
+  font-size:clamp(13px,1.06vw,16px); letter-spacing:.08em;
+}
+.credits > span{ display:inline-flex; align-items:baseline; white-space:nowrap; }
+.credits .ck{ font-size:.86em; letter-spacing:.22em; color:var(--ink-faint); margin-right:.75em; }
+.credits .cv{ font-family:var(--font-display); letter-spacing:.14em; color:var(--sea-deep); }
 
 /* ============================================================
    13 · 轻提示
@@ -969,9 +984,17 @@ body.lb-on{ overflow:hidden; }
 </main>
 
 <footer class="foot">
-  <span>何以成人，青年何为</span><span class="dot">·</span>
-  <span>我的国庆海鸥岛行走思考</span><span class="dot">·</span>
-  <span>《大学生文化素养》课堂分享</span>
+  <p class="foot-line">
+    <span>何以成人，青年何为</span><span class="dot">·</span>
+    <span>我的国庆海鸥岛行走思考</span><span class="dot">·</span>
+    <span>《大学生文化素养》课堂分享</span>
+  </p>
+
+  <div class="credits">
+    <span><span class="ck">开发者</span><span class="cv">罗静怡</span></span>
+    <span><span class="ck">素材</span><span class="cv">罗静怡　雷正宇</span></span>
+    <span><span class="ck">组名</span><span class="cv">基因重组</span></span>
+  </div>
 </footer>
 
 <!-- ══════════════ 灯箱 ══════════════ -->
