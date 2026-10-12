@@ -614,6 +614,32 @@ body.lb-on{ overflow:hidden; }
 .credits .cv{ font-family:var(--font-display); letter-spacing:.14em; color:var(--sea-deep); }
 
 /* ============================================================
+   12.5 · 悬浮宠物 · 砂狼白子
+   ------------------------------------------------------------
+   z-index 995：浮在所有页面内容与导航栏之上，但仍在灯箱(1000)、
+   二维码全屏(1050)之下 —— 弹层打开时宠物让位，不挡内容。
+   ============================================================ */
+.pet{
+  position:fixed; right:clamp(14px,2vw,28px); bottom:clamp(14px,2vw,28px);
+  z-index:995; width:clamp(88px,7.6vw,122px);
+  cursor:grab; touch-action:none; -webkit-user-select:none; user-select:none;
+  -webkit-tap-highlight-color:transparent;
+  filter:drop-shadow(0 10px 20px rgba(90,70,40,.2));
+}
+.pet.dragging{ cursor:grabbing; filter:drop-shadow(0 16px 30px rgba(90,70,40,.28)); }
+.pet-bob{ animation:petBob 3.8s ease-in-out infinite; transform-origin:50% 92%; }
+@keyframes petBob{
+  0%,100%{ transform:translateY(0) rotate(-1.6deg); }
+  50%    { transform:translateY(-10px) rotate(1.6deg); }
+}
+.pet.hovered .pet-bob{ animation-duration:1.6s; }
+.pet svg{ width:100%; height:auto; display:block; overflow:visible; }
+@media (prefers-reduced-motion:reduce){ .pet-bob{ animation:none; } }
+@media (max-width:760px){
+  .pet{ width:clamp(78px,17vw,96px); }
+}
+
+/* ============================================================
    13 · 轻提示
    ============================================================ */
 .toast{
@@ -1019,6 +1045,76 @@ body.lb-on{ overflow:hidden; }
   <div class="qr-full-box" id="qrFullBox"></div>
   <p>扫码参与投票与留言互动</p>
   <p class="hintline">点击任意处 或 按 Esc 退出全屏</p>
+</div>
+
+<!-- ══════════════ 悬浮宠物 · 砂狼白子（可拖动） ══════════════ -->
+<div class="pet" id="pet" role="img" aria-label="砂狼白子（可拖动的小宠物）">
+  <div class="pet-bob">
+    <svg viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="hairG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#F4F8FB"/><stop offset="100%" stop-color="#DAE4EE"/>
+        </linearGradient>
+        <linearGradient id="coatG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#43464F"/><stop offset="100%" stop-color="#2C2F37"/>
+        </linearGradient>
+        <radialGradient id="haloG" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#E6F6FD" stop-opacity=".95"/>
+          <stop offset="65%" stop-color="#BFE6F5" stop-opacity=".45"/>
+          <stop offset="100%" stop-color="#BFE6F5" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <!-- 头顶光环 -->
+      <ellipse cx="60" cy="11" rx="25" ry="8.5" fill="url(#haloG)"/>
+      <ellipse cx="60" cy="11" rx="18.5" ry="4" fill="none" stroke="#B4E0F2" stroke-width="2.6" opacity=".9"/>
+
+      <!-- 后发（长卷发） -->
+      <path d="M60 24C37 24 25 41 26 63c1 24-4 42 0 60 2 8 12 10 16 2 2-16 2-33 2-41h32c0 8 0 25 2 41 4 8 14 6 16-2 4-18-1-36 0-60 1-22-11-39-34-39Z" fill="url(#hairG)"/>
+      <path d="M30 96c4 6 4 16 3 25M90 96c-4 6-4 16-3 25" stroke="#CBD8E4" stroke-width="1.3" stroke-linecap="round" opacity=".8"/>
+
+      <!-- 狼耳 -->
+      <path d="M38 48C34 37 29 24 28 16c9 4 22 11 30 17-6 4-14 10-20 15Z" fill="#EEF3F8" stroke="#CBD8E4" stroke-width="1.2"/>
+      <path d="M82 48c4-11 9-24 10-32-9 4-22 11-30 17 6 4 14 10 20 15Z" fill="#EEF3F8" stroke="#CBD8E4" stroke-width="1.2"/>
+      <path d="M38.5 44c-2.4-7.5-5.2-14.5-5.8-19 5.6 2.7 13 6.8 18.6 10.4-4.6 3-9.2 6.2-12.8 8.6Z" fill="#F7DBD8" opacity=".9"/>
+      <path d="M81.5 44c2.4-7.5 5.2-14.5 5.8-19-5.6 2.7-13 6.8-18.6 10.4 4.6 3 9.2 6.2 12.8 8.6Z" fill="#F7DBD8" opacity=".9"/>
+
+      <!-- 头 -->
+      <ellipse cx="60" cy="63" rx="29" ry="28" fill="#FCE8DA"/>
+
+      <!-- 两侧长发 -->
+      <path d="M31 54c-3.5 13-3.5 28-1.5 41 1 5.5 9 5.5 10 0 1.5-13 1.5-27 .5-39Z" fill="url(#hairG)"/>
+      <path d="M89 54c3.5 13 3.5 28 1.5 41-1 5.5-9 5.5-10 0-1.5-13-1.5-27-.5-39Z" fill="url(#hairG)"/>
+
+      <!-- 刘海 -->
+      <path d="M31 56c0-19 13-31 29-31s29 12 29 31c-2-9-7-14-11-12-2 9-7 13-11 8-4 7-11 7-15 0-4 6-9 4-11-3-5-2-9 3-10 7Z" fill="url(#hairG)"/>
+      <path d="M40 34c5-5 12-8 20-8" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+
+      <!-- X 形发夹 -->
+      <g transform="translate(85 46)">
+        <rect x="-7.2" y="-2" width="14.4" height="4" rx="2" fill="#8FCBE0" transform="rotate(45)"/>
+        <rect x="-7.2" y="-2" width="14.4" height="4" rx="2" fill="#ACDAEC" transform="rotate(-45)"/>
+        <circle cx="0" cy="0" r="1.6" fill="#E6F6FD"/>
+      </g>
+
+      <!-- 身体：黑外套 -->
+      <path d="M47 95c-9 5-14 21-15 51 0 5 4 9 10 9h36c6 0 10-4 10-9-1-30-6-46-15-51Z" fill="url(#coatG)"/>
+      <!-- 白衬衫 V 领 -->
+      <path d="M50 96l10 23 10-23Z" fill="#FCFDFE"/>
+      <!-- 浅蓝领带 -->
+      <path d="M57 99h6l2.5 9-5.5 14-5.5-14Z" fill="#9FD3E8"/>
+      <path d="M57 99h6l2.5 9h-11Z" fill="#B9E2F2"/>
+      <!-- 浅蓝围巾 -->
+      <path d="M44 91c5 12 27 12 32 0 5.5 2 7.5 10 2 14-6.5 8-29 8-36 0-5.5-4-3.5-12 2-14Z" fill="#A8D8EA"/>
+      <path d="M44 91c5 12 27 12 32 0" stroke="#8CC7DE" stroke-width="1.3" fill="none"/>
+      <path d="M74 104c4 6 6 12 6 18" stroke="#8CC7DE" stroke-width="1.2" fill="none" stroke-linecap="round" opacity=".7"/>
+
+      <!-- 表情层（JS 按心情替换） -->
+      <g class="pet-face"></g>
+      <!-- 手臂层（JS 按心情替换） -->
+      <g class="pet-arms"></g>
+    </svg>
+  </div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -1802,7 +1898,246 @@ onScroll();
 
 
 /* ================================================================
-   07 · 二维码
+   07 · 悬浮宠物 · 砂狼白子
+   ----------------------------------------------------------------
+   6 种表情：托腮思考 / 耷拉眼委屈 / 开心举手 / 害羞脸红 / 张嘴惊讶 / 微笑吐舌头
+   hover → 开心；平时每隔几秒随机换一种；可拖动，位置记在本机。
+   ================================================================ */
+(function pet(){
+
+  const el = $('#pet'), faceEl = $('.pet-face'), armsEl = $('.pet-arms');
+  if (!el || !faceEl) return;
+
+  const DARK = '#3A3F4A';                       // 眼瞳
+  const LINE = '#B98A72';                       // 嘴线
+  const SKIN = '#E8C9B4';                       // 眼皮
+
+  /* 一套基础大眼，供各种表情复用 */
+  const eyesBase = (cx1, cx2, cy) => `
+    <ellipse cx="${cx1}" cy="${cy}" rx="6" ry="7.2" fill="${DARK}"/>
+    <ellipse cx="${cx2}" cy="${cy}" rx="6" ry="7.2" fill="${DARK}"/>
+    <circle cx="${cx1 + 1.7}" cy="${cy - 2.6}" r="2.15" fill="#fff"/>
+    <circle cx="${cx2 + 1.7}" cy="${cy - 2.6}" r="2.15" fill="#fff"/>
+    <circle cx="${cx1 - 1.8}" cy="${cy + 2.8}" r="1.15" fill="#fff" opacity=".6"/>
+    <circle cx="${cx2 - 1.8}" cy="${cy + 2.8}" r="1.15" fill="#fff" opacity=".6"/>`;
+
+  /* ---- 六种表情 ---- */
+  const MOODS = {
+
+    /* ① 托腮思考 */
+    think: {
+      face: `
+        <path d="M43 65q6-7 12 0q-6 5-12 0Z" fill="${DARK}"/>
+        <path d="M65 65q6-7 12 0q-6 5-12 0Z" fill="${DARK}"/>
+        <path d="M42.5 62.5q6.5-7 13 0" fill="none" stroke="${SKIN}" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M64.5 62.5q6.5-7 13 0" fill="none" stroke="${SKIN}" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="51.4" cy="63.2" r="2.5" fill="#fff" opacity=".92"/>
+        <circle cx="73.4" cy="63.2" r="2.5" fill="#fff" opacity=".92"/>
+        <path d="M56.5 76q3.5 1.6 7 0" fill="none" stroke="${LINE}" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="M44 51q6-2.5 11 0.5" fill="none" stroke="#C9AC90" stroke-width="1.6" stroke-linecap="round"/>`,
+      arms: `
+        <path d="M44 116q-8-13-7-24" fill="none" stroke="#4A4E58" stroke-width="11" stroke-linecap="round"/>
+        <circle cx="37" cy="90" r="8.6" fill="#FCE8DA"/>
+        <path d="M33 88q4-2.5 8 0" fill="none" stroke="#E8C9B4" stroke-width="1" opacity=".75"/>`
+    },
+
+    /* ② 耷拉眼委屈 */
+    sad: {
+      face: `
+        <ellipse cx="49" cy="65.5" rx="5.7" ry="6.6" fill="${DARK}" transform="rotate(14 49 65.5)"/>
+        <ellipse cx="71" cy="65.5" rx="5.7" ry="6.6" fill="${DARK}" transform="rotate(-14 71 65.5)"/>
+        <circle cx="50.4" cy="62.8" r="1.9" fill="#fff"/>
+        <circle cx="72.4" cy="62.8" r="1.9" fill="#fff"/>
+        <path d="M41.5 59.5q6.5 3.6 13 6.6" fill="none" stroke="#FCE8DA" stroke-width="3.6" stroke-linecap="round"/>
+        <path d="M78.5 59.5q-6.5 3.6-13 6.6" fill="none" stroke="#FCE8DA" stroke-width="3.6" stroke-linecap="round"/>
+        <path d="M41 54.5q6-3.6 12.5-3.4" fill="none" stroke="#C9AC90" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M79 54.5q-6-3.6-12.5-3.4" fill="none" stroke="#C9AC90" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M54.5 76q2.8-2.4 5.5 0 2.7 2.4 5.5 0" fill="none" stroke="${LINE}" stroke-width="1.6" stroke-linecap="round"/>`
+    },
+
+    /* ③ 开心举手 */
+    happy: {
+      face: `
+        <path d="M42.5 67q6.5-9 13 0" fill="none" stroke="${DARK}" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M64.5 67q6.5-9 13 0" fill="none" stroke="${DARK}" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M52.5 73.5q7.5 10 15 0Z" fill="#8C4A46"/>
+        <path d="M56 76.5q4 3.5 8 0Z" fill="#F08A8A"/>
+        <ellipse cx="41" cy="72" rx="5.2" ry="3.2" fill="#F7ADA6" opacity=".5"/>
+        <ellipse cx="79" cy="72" rx="5.2" ry="3.2" fill="#F7ADA6" opacity=".5"/>`,
+      arms: `
+        <path d="M45 124q-11-14-14-29" fill="none" stroke="#4A4E58" stroke-width="11" stroke-linecap="round"/>
+        <path d="M75 124q11-14 14-29" fill="none" stroke="#4A4E58" stroke-width="11" stroke-linecap="round"/>
+        <circle cx="30" cy="89" r="8.6" fill="#FCE8DA"/>
+        <circle cx="90" cy="89" r="8.6" fill="#FCE8DA"/>
+        <path d="M26 87q4-2.5 8 0M86 87q4-2.5 8 0" fill="none" stroke="#E8C9B4" stroke-width="1" opacity=".75"/>`
+    },
+
+    /* ④ 害羞脸红 */
+    shy: {
+      face: `
+        <ellipse cx="47.5" cy="65" rx="5.7" ry="6.6" fill="${DARK}"/>
+        <ellipse cx="69.5" cy="65" rx="5.7" ry="6.6" fill="${DARK}"/>
+        <circle cx="45.8" cy="62.6" r="1.95" fill="#fff"/>
+        <circle cx="67.8" cy="62.6" r="1.95" fill="#fff"/>
+        <ellipse cx="41" cy="72.5" rx="6.2" ry="3.9" fill="#F7ADA6" opacity=".62"/>
+        <ellipse cx="79" cy="72.5" rx="6.2" ry="3.9" fill="#F7ADA6" opacity=".62"/>
+        <path d="M37 70.5l3 4M41 70.5l3 4M45 70.5l3 4" stroke="#E58E88" stroke-width="1" stroke-linecap="round" opacity=".75"/>
+        <path d="M75 70.5l3 4M79 70.5l3 4M83 70.5l3 4" stroke="#E58E88" stroke-width="1" stroke-linecap="round" opacity=".75"/>
+        <path d="M55.5 75.5q2-1.7 4 0t4 0" fill="none" stroke="${LINE}" stroke-width="1.5" stroke-linecap="round"/>`,
+      arms: `
+        <path d="M48 122q-6-9-6-18" fill="none" stroke="#4A4E58" stroke-width="11" stroke-linecap="round"/>
+        <path d="M72 122q6-9 6-18" fill="none" stroke="#4A4E58" stroke-width="11" stroke-linecap="round"/>
+        <circle cx="53" cy="103" r="7.8" fill="#FCE8DA"/>
+        <circle cx="67" cy="103" r="7.8" fill="#FCE8DA"/>`
+    },
+
+    /* ⑤ 张嘴惊讶 */
+    wow: {
+      face: `
+        <ellipse cx="49" cy="63" rx="6.6" ry="7.8" fill="${DARK}"/>
+        <ellipse cx="71" cy="63" rx="6.6" ry="7.8" fill="${DARK}"/>
+        <circle cx="51.2" cy="59.8" r="2.5" fill="#fff"/>
+        <circle cx="73.2" cy="59.8" r="2.5" fill="#fff"/>
+        <circle cx="47.4" cy="66.8" r="1.4" fill="#fff" opacity=".65"/>
+        <circle cx="69.4" cy="66.8" r="1.4" fill="#fff" opacity=".65"/>
+        <ellipse cx="60" cy="76.5" rx="3.4" ry="4.3" fill="#8C4A46"/>
+        <path d="M95 44l6-6M25 44l-6-6" stroke="#9FD3E8" stroke-width="2" stroke-linecap="round"/>`
+    },
+
+    /* ⑥ 微笑吐舌头 */
+    smile: {
+      face: `
+        <path d="M42.5 66q6.5-8 13 0" fill="none" stroke="${DARK}" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M64.5 66q6.5-8 13 0" fill="none" stroke="${DARK}" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M54 72q6 6.5 12 0" fill="none" stroke="${LINE}" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M57.2 75h5.6v2.6a2.8 2.8 0 0 1-5.6 0Z" fill="#F08A8A"/>
+        <path d="M57.2 77.2h5.6" stroke="#D96E6E" stroke-width=".9"/>
+        <ellipse cx="41.5" cy="72" rx="5" ry="3" fill="#F7ADA6" opacity=".45"/>
+        <ellipse cx="78.5" cy="72" rx="5" ry="3" fill="#F7ADA6" opacity=".45"/>`
+    }
+  };
+
+  const ORDER = ['think', 'sad', 'happy', 'shy', 'wow', 'smile'];
+
+  let cur = 'smile', hovered = false, timer = null;
+  const DEFAULT_ARMS = `
+    <path d="M44 112c-7 5-10 17-10 27" fill="none" stroke="#4A4E58" stroke-width="11" stroke-linecap="round"/>
+    <path d="M76 112c7 5 10 17 10 27" fill="none" stroke="#4A4E58" stroke-width="11" stroke-linecap="round"/>
+    <circle cx="33" cy="141" r="8.2" fill="#FCE8DA"/>
+    <circle cx="87" cy="141" r="8.2" fill="#FCE8DA"/>
+    <path d="M29 139q4-2.5 8 0M83 139q4-2.5 8 0" fill="none" stroke="#E8C9B4" stroke-width="1" opacity=".75"/>`;
+
+  /* 整张脸统一下移 3px —— chibi 五官压低一点更显可爱 */
+  const faceWrap = s => `<g transform="translate(0,3)">${s}</g>`;
+
+  function setMood(name){
+    const m = MOODS[name] || MOODS.smile;
+    cur = name;
+    faceEl.innerHTML = faceWrap(m.face);
+    armsEl.innerHTML = m.arms || DEFAULT_ARMS;
+  }
+
+  /* 随机轮换：3.5～7 秒换一次，不会连续重复同一种 */
+  function schedule(){
+    clearTimeout(timer);
+    if (hovered) return;
+    timer = setTimeout(() => {
+      const pool = ORDER.filter(k => k !== cur);
+      setMood(pool[Math.floor(Math.random() * pool.length)]);
+      schedule();
+    }, 3500 + Math.random() * 3500);
+  }
+
+  /* ---- hover → 开心 ---- */
+  el.addEventListener('pointerenter', e => {
+    if (e.pointerType !== 'mouse') return;
+    hovered = true; el.classList.add('hovered');
+    clearTimeout(timer);
+    setMood('happy');
+  });
+  el.addEventListener('pointerleave', e => {
+    if (e.pointerType !== 'mouse') return;
+    hovered = false; el.classList.remove('hovered');
+    schedule();
+  });
+
+  /* ---- 拖动 ---- */
+  const POS_KEY = 'hg_pet_pos';
+  let dragging = false, offX = 0, offY = 0, moved = false;
+
+  function place(x, y){
+    // 首次执行时布局可能还没就绪，offsetWidth 会是 0，这里给个兜底尺寸
+    const w = el.offsetWidth  || 120;
+    const h = el.offsetHeight || 150;
+    x = Math.max(4, Math.min(window.innerWidth  - w - 4, x));
+    y = Math.max(4, Math.min(window.innerHeight - h - 4, y));
+    el.style.left = x + 'px';   el.style.top = y + 'px';
+    el.style.right = 'auto';    el.style.bottom = 'auto';
+    return { x, y };
+  }
+
+  // 恢复上次拖到的位置
+  try {
+    const saved = JSON.parse(localStorage.getItem(POS_KEY) || 'null');
+    if (saved && Number.isFinite(saved.x) && Number.isFinite(saved.y)){
+      requestAnimationFrame(() => place(saved.x, saved.y));
+    }
+  } catch (e) { /* 忽略 */ }
+
+  el.addEventListener('pointerdown', e => {
+    dragging = true; moved = false;
+    el.setPointerCapture(e.pointerId);
+    el.classList.add('dragging');
+    const r = el.getBoundingClientRect();
+    offX = e.clientX - r.left;
+    offY = e.clientY - r.top;
+    clearTimeout(timer);
+  });
+
+  el.addEventListener('pointermove', e => {
+    if (!dragging) return;
+    moved = true;
+    place(e.clientX - offX, e.clientY - offY);
+  });
+
+  function endDrag(e){
+    if (!dragging) return;
+    dragging = false;
+    el.classList.remove('dragging');
+    if (moved){
+      try {
+        localStorage.setItem(POS_KEY, JSON.stringify({
+          x: parseFloat(el.style.left), y: parseFloat(el.style.top)
+        }));
+      } catch (err) { /* 忽略 */ }
+    }
+    if (!hovered) schedule();
+  }
+  el.addEventListener('pointerup', endDrag);
+  el.addEventListener('pointercancel', endDrag);
+
+  // 窗口尺寸变化时，保证宠物不会跑出屏幕外
+  window.addEventListener('resize', () => {
+    if (el.style.left){
+      place(parseFloat(el.style.left), parseFloat(el.style.top));
+    }
+  });
+
+  /* 给任意一个 .pet 节点设置表情（预览/调试用） */
+  window.__setPetMood = function(node, name){
+    const m = MOODS[name] || MOODS.smile;
+    const f = node.querySelector('.pet-face'), a = node.querySelector('.pet-arms');
+    if (f) f.innerHTML = faceWrap(m.face);
+    if (a) a.innerHTML = m.arms || DEFAULT_ARMS;
+  };
+
+  setMood('smile');
+  schedule();
+})();
+
+
+/* ================================================================
+   08 · 二维码
    ----------------------------------------------------------------
    下面是"何以成人，青年何为"课堂页面的二维码（已内嵌，无需联网）。
    若页面最终地址与此二维码不一致，页面会自动提示。
